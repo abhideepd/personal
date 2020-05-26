@@ -2,11 +2,11 @@ public class nqueen {
     static int soln[][];
     public static void main(String[] args) {
         
-        int n=5;        //no. of squares in chessboard
+        int n=10;        //no. of squares in chessboard
         reset(n);
         rani(n);
         //driver(3, 2, n);
-        printx(n);
+        //printx(n);
     }
     static void reset(int n)
     {
@@ -19,28 +19,35 @@ public class nqueen {
         if(n<4)
         System.out.println("not possible");
         else
-        xx=operation(n, 0, 0);
+        xx=operation(n, 0, 0, 0);
     }
 
-    public static boolean operation(int n, int i, int j)
+    public static boolean operation(int n, int i, int j, int pervj)
     {
-        if(i==n)
-        {
+       if(i==n)
+       {
             printx(n);
-            reset(n);
-            operation(n, 0, j+1);
-        }
+            return true;
+            //reset(n);
+            //operation(n, 0, j+1);
+       }
+       if(j==n)
+       {
+           return false;
+            //operation(n, i+1, pervj+1, pervj+1);
+       }
 
-        if(safe(n, i, j))
-        {
+       if(soln[i][j]==0)
+       {
+            soln[i][j]=1;
             driver(i, j, n);
-            if(operation(n, i+1, j));
-            else{
-                reset(n);
-                operation(n, 0, j+1);
-            }
-        }
-        return false;
+            if(operation(n, i+1, 0, pervj));
+            //undrive(i, j, n);
+       }
+       else{
+            operation(n, i, j+1, pervj);
+       }       
+       return false;
     }
 
     static void printx(int n)
@@ -51,6 +58,7 @@ public class nqueen {
             System.out.print(soln[i][j]+" ");
             System.out.println();
         }
+        System.out.println();
     }
 
     public static boolean safe(int i, int j, int n)
@@ -64,6 +72,11 @@ public class nqueen {
             }
         }
         return false;
+    }
+
+    public static void undrive(int i, int j, int n)
+    {
+
     }
 
     public static void driver(int i, int j, int n)
