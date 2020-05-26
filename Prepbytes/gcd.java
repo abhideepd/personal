@@ -15,7 +15,7 @@
                 //int b=9;
                 long b=Long.parseLong(input[1]);
                 long x=0;
-
+//
                 if(a!=b)
                     x=gcd(Math.max(a,b), Math.min(a,b));
                 else

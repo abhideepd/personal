@@ -14,7 +14,7 @@ public class combi {
             arr[i]=Integer.parseInt(input[i]);
         }
 
-        k=3;
+        k=3;//
         output();
     }    
     static void output()
