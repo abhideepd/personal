@@ -1,3 +1,5 @@
+package Practice;
+
 class Res {
     static String max = "";
 }

@@ -28,8 +28,8 @@ public class May_Cookoff_Friendship {
            
            for(int i=2; i<input.length(); i++)
            {
-               a=output(arr, i);
-               b=   
+              // a=output(arr, i);
+              /// b=   
            }
         }       
     }
