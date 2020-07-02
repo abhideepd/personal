@@ -35,7 +35,7 @@ static int func(int []arr)
 
     while(l<r)
     {
-        System.out.println(l+" "+r);
+        //System.out.println(l+" "+r);
         if(arr[m]==1)
             if(arr[m-1]==0)
             break;
@@ -43,6 +43,7 @@ static int func(int []arr)
             r=m-1;
         else
         l=m+1;
+        m=(l+r)/2;
     }
     return m;
 }
