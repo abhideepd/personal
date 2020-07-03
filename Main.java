@@ -3,58 +3,41 @@ import java.io.*;
 public class Main {
     public static void main(String[] args)throws IOException {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
-        //input no. of test cases
-        int T=Integer.parseInt(x.readLine());
-        for(int i1=0; i1<T; i1++)
+    
+        String input1[]=(x.readLine()).split(" ");
+        int size=Integer.parseInt(input1[0]);
+        int K=Integer.parseInt(input1[1]);
+  
+        String input2[]=(x.readLine()).split(" ");
+
+        int arr[]=new int[size];
+        int max=-1;
+        for(int i=0; i<size; i++)
         {
-            //Input size and 'x'
-            String input1[]=(x.readLine()).split(" ");
-            int size=Integer.parseInt(input1[0]);
-            int aex=Integer.parseInt(input1[1]);
-            //Input sorted array
-            String input2[]=(x.readLine()).split(" ");
-            //change string array to integer
-            int arr[]=new int[size];
-            for(int i=0; i<size; i++)
-            {
-                arr[i]=Integer.parseInt(input2[i]);
-            }
-            //TESTING
-            //System.out.print("Result:- ");
-            if(arr[0]>aex)
-            System.out.println(-1);
-            else if(arr[0]==aex)
-            System.out.println(0);
-            else if(arr[arr.length-1]<=aex)
-            System.out.println(arr.length-1);
-            else
-            System.out.println(beberexa(arr, aex));
+            arr[i]=Integer.parseInt(input2[i]);
+            if(max<arr[i])
+            max=arr[i];
         }
-    }
-    public static int beberexa(int []arr, int x)
-    {
-        int l=0;
-        int r=arr.length;
-        int m=(l+r)/2;
-        while(l<r)
+        int index[]=new int[max+1];
+ 
+        for(int i=0; i<size; i++)
         {
-            //System.out.println(l+" "+r);
-            if(arr[m]>x)
+            index[arr[i]]=index[arr[i]]+1;
+        }
+        int result=0;
+
+        for(int i=0; i<max+1; i++)
+        {
+            int temp1=i;
+            int temp2=temp1+K;
+            
+            if(temp2<max+1)
             {
-                r=m-1;
-            }
-            else if(arr[m]==x)
-            {
-                return m;
+                result=result+(index[temp1]<=index[temp2]?index[temp1]:index[temp2]);
             }
             else
-            {
-                l=m+1;
-            }
-            m=(l+r)/2;
+            break;
         }
-        if(arr[m]>x)
-        --m;
-        return m;
+        System.out.println(result);
     }
 }
