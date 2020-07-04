@@ -15,22 +15,30 @@ public class NUMCHOC {
         }
         Arrays.sort(arr);
         int q=Integer.parseInt(x.readLine());
+        
         for(int i=0; i<q; i++)
         {
             int inp=Integer.parseInt(x.readLine());
+            //System.out.print("Answer:");
             if(inp<arr[0])
             System.out.println(0);
             else if(inp>arr[arr.length-1])
             System.out.println(arr.length);
             else{
-                int result=0;
-                for(int i1=0; i1<arr.length; i1++)
+                //binary search
+                int l=0;
+                int r=size-1;
+                int m=(l+r)/2;
+                while(l<=r)
                 {
-                    if(arr[i1]>inp)
-                    break;
-                    ++result;
+                    //System.out.println(l+" "+r);
+                    if(arr[m]>inp)
+                    r=m-1;
+                    else if(arr[m]<=inp)
+                    l=m+1;
+                    m=(l+r)/2;                    
                 }
-                System.out.println(result);
+            System.out.println((m+1));
             }
         }
     }

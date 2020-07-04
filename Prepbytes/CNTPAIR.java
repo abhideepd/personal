@@ -19,14 +19,7 @@ public class CNTPAIR {
             max=arr[i];
         }
         //int index[]=new int[max+1];
-        int index[]=new int[1000000000];
-        //System.out.println("max: "+max);
-        for(int i=0; i<size; i++)
-        {
-            //System.out.println(i);
-            index[arr[i]]=index[arr[i]]+1;
-        }
-        int result=0;
+        Arrays.sort(arr);
 
         //TEST
         //for(int i=0; i<max+1; i++)
