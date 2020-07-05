@@ -31,7 +31,7 @@ public class CNTPAIR1 {
         }
         //System.out.println(hm);
         int result=0;
-        for(int i=0; i<hm.size(); i++)
+        /*for(int i=0; i<hm.size(); i++)
         {
             
             int temp1=arr[i];
@@ -39,16 +39,16 @@ public class CNTPAIR1 {
             
             //System.out.println(temp1+" "+temp2+"--->"+result);
 
-            /*if(temp2<max+1)
-            {
-                result=result+(hm.get(temp1)<=hm.get(temp2)?hm.get(temp1):hm.get(temp2));
-            }*/
             if(hm.containsKey(temp2))
             {
+                result=result+(hm.get(temp1)>=hm.get(temp2)?hm.get(temp1):hm.get(temp2));
+            }
+            /*if(hm.containsKey(temp2))
+            {
                 ++result;
-            }                        
-        }
-/*
+            }           
+        }*/
+
         for (Map.Entry<Integer, Integer> e : hm.entrySet())
         {
             int temp1=e.getKey();
@@ -56,9 +56,9 @@ public class CNTPAIR1 {
 
             if(hm.containsKey(temp2))
             {
-                result=result+(hm.get(temp1)<=hm.get(temp2)?hm.get(temp1):hm.get(temp2));
+                result=result+(hm.get(temp1)>=hm.get(temp2)?hm.get(temp1):hm.get(temp2));
             }
-        }*/
+        }
         System.out.println(result);
     }
 }

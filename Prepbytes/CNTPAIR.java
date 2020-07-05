@@ -1,5 +1,6 @@
 package Prepbytes;
 import java.io.*;
+import java.util.*;
 public class CNTPAIR {
     public static void main(String[] args)throws IOException {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
@@ -18,27 +19,41 @@ public class CNTPAIR {
             if(max<arr[i])
             max=arr[i];
         }
-        //int index[]=new int[max+1];
+  
         Arrays.sort(arr);
+        int result=0;
 
-        //TEST
-        //for(int i=0; i<max+1; i++)
-        //System.out.println(i+"--->"+index[i]);
-        //TEST
-        //System.out.println(K);
-        for(int i=0; i<max+1; i++)
+        for(int i=0; i<size; i++)
         {
-            int temp1=i;
+            int temp1=arr[i];
             int temp2=temp1+K;
-            
-            if(temp2<max+1)
-            {
-                result=result+(index[temp1]<=index[temp2]?index[temp1]:index[temp2]);
-            }
-            else
-            break;
-            //System.out.println(temp1+" "+temp2+"--->"+result);
+            //System.out.println("xxyz: "+temp2);
+            if(search(arr, temp2)!=-1)
+            ++result;
         }
         System.out.println(result);
+    }
+    public static int search(int []arr, int s)
+    {
+        int l=0;
+        int r=arr.length-1;
+        int m=(l+r)/2;
+
+        while(l<=r)
+        {
+            //System.out.println("sxxa: "+m);
+            if(arr[m]>s)
+            {
+                r=m-1;
+            }
+            else if(arr[m]<s)
+            {
+                l=m+1;
+            }
+            else if(arr[m]==s)
+            return 0;
+            m=(l+r)/2;
+        }
+        return -1;
     }
 }
