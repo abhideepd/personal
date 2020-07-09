@@ -8,43 +8,35 @@ public class MAXPRO {
         {
             int size=Integer.parseInt(x.readLine());
             String input[]=(x.readLine()).split(" ");
-            int arr[]=new int[size+1];
+            int arr[]=new int[size];
             for(int i=0; i<size; i++)
             {
                 arr[i]=Integer.parseInt(input[i]);
             }
-            arr[size]=-1;
-            int arr1[]=new int[size+1];
-            int prev=arr1[0];
-            for(int i=1; i<size+1; i++)
-            {
-                if(prev>arr[i])
-                arr1[i-1]=1;
-                prev=arr[i];
-            }
             
-            for(int i=0; i<size; i++)
+            int result=0, a=100000000, max=arr[0], min=arr[0];
+            for(int i=1; i<size; i++)
             {
-                System.out.print(arr1[i]+" ");
-            }
-
-            int a=10000000;
-            int min=a;
-            int result=0;
-            for(int i=0; i<size; i++)
-            {
-                if(arr1[i]==1)
+                if(arr[i]<arr[i-1])
                 {
-                    if(min!=a)
-                    {
-                        
-                    }
+                    int temp=max-min;
+                    temp=temp>0?temp:0;
+                    result=result+temp;
+                    //System.out.println("XYZ: "+max+" "+min);
+                    max=arr[i];
+                    min=arr[i];
                 }
-                else
-                {
+                    if(arr[i]>max)
+                    max=arr[i];
 
-                }
+                    if(arr[i]<min)
+                    min=arr[i];
             }
+            int temp=max-min;
+                temp=temp>0?temp:0;
+                result=result+temp;
+                //System.out.println("XYZ: "+max+" "+min);
+            System.out.println(result);
         }
     }
 }
