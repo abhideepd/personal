@@ -4,34 +4,38 @@ import java.util.*;
 public class BTFBRAC {
     public static void main(String[] args)throws IOException {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
-        int T=Integer.parseInt(x.readLine());
-        for(int i1=0; i1<T; i1++)
+        for(int i=1;i>0;i++)
         {
-            int size=Integer.parseInt(x.readLine());
             String input=x.readLine();
-            System.out.println(fact(input));
+            if(input.charAt(0)=='-')
+            break;
+            System.out.println(i+". "+fact(input));
         }
+        
     }
     static int fact(String input)
     {
-        Stack<Integer> s=new Stack<Integer>();
+        Stack<String> s=new Stack<String>();
+        int close_b=0;
+
         for(int i=0; i<input.length(); i++)
         {
-            if(input.charAt(i)=='>')
+            if(input.charAt(i)=='}')
             {
-                if(s.isEmpty())
-                return i;
-                else
+                if(!(s.isEmpty()))
                 s.pop();
+                else
+                ++close_b;
             }
             else{
-                s.push(i+1);
+                s.push("{");
             }
         }
-        ArrayList<Integer> ar=new ArrayList<Integer>(s);
-        //System.out.println(s);
-        if(!s.isEmpty())
-        return ar.get(0)-1;
-        return input.length();
+        int open_b=s.size();
+        close_b=close_b+(close_b%2);
+        close_b=close_b/2;
+        open_b=open_b+(open_b%2);
+        open_b=open_b/2;
+        return (close_b+open_b);
     }
 }
