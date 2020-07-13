@@ -14,38 +14,46 @@ public class WINDOW {
                 arr[i]=Integer.parseInt(input[i]);
             }
             int start=0;
+            int min=arr[0];
+            int max=arr[size-1];
+
             for(int i=0; i<size-1; i++)
-            {
+            {               
                 if(arr[i]>arr[i+1])
                 {
                     start=i;
                     break;
                 }
+                if(arr[i]<min)
+                min=arr[i]; 
             }
             int end=0;
             for(int i=size-1; i>0; i--)
-            {
+            {               
+
                 if(arr[i]<arr[i-1])
                 {
                     end=i;
                     break;
                 }
-            }
-            int min=arr[start];
-            int max=arr[start];
-            for(int i=start; i<=end; i++)
-            {
-                if(min>arr[i])  
-                min=arr[i];
-
-                if(max<arr[i])
+                if(arr[i]>max)
                 max=arr[i];
             }
-            //System.out.println(start+" "+end);
-            if(start!=0)
-            if((min<=arr[0])||(max>=arr[size-1]))
+            int min1=arr[start];
+            int max1=arr[start];
+            for(int i=start; i<=end; i++)
             {
-                start=0;
+                if(min1>arr[i])  
+                min1=arr[i];
+
+                if(max1<arr[i])
+                max1=arr[i];
+            }
+            System.out.println(start+" "+end);
+            System.out.println(min+" "+max+" "+min1+" "+max1);
+            if((min1<=min)||(max1>=max))
+            {
+                start =0;
                 end=size-1;
             }
             System.out.println(start+" "+end);

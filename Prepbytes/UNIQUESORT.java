@@ -14,17 +14,23 @@ public class UNIQUESORT {
             {
                 arr[i]=Integer.parseInt(input[i]);
             }
-           // System.out.println(func(arr, 0, size));
+            System.out.println(func(arr, 0, size));
         }
     }
-    /*static int func(int []arr, int i, int j)
+    static int func(int []arr, int i, int j)
     {
+        int flag=0;
         for(int i1=i; i1<j-1; i1++)
         {
             if(arr[i1]>arr[i1+1])
             {
-                //func
+                int temp=(j+j%2)/2;
+                func(arr, i, temp);
+                func(arr,temp, j);
+                flag=1;
+                break;
             }
         }
-    }*/
+        return (j-i);
+    }
 }
