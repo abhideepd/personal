@@ -13,25 +13,30 @@ public class RMBNUM {
             long r=Long.parseLong(input[0]);
             long p=Long.parseLong(input[1]);
             long q=Long.parseLong(input[2]);
-            long res=0;
-            long c=1;
-
+            long result=0;
             
-            /*if(p%r==0)
-            c=1;
-
-            if(p<0)
-            c=1;*/
-
-            long a=(long)Math.ceil((double)p/(double)r);
-            long b=(long)Math.ceil((double)q/(double)r);
-
-            res=Math.abs(b-a);
-
-            if(res>0)
-            res=res+c;
-
-            System.out.println("res: "+res);
+            if((p<=0)&&(q>=0))
+            {
+                result=(q/r)-(p/r)+1;
+            }
+            else if((p>0)&&(q>0))
+            {
+                if(p%r==0)
+                result=(q/r)-(p/r)+1;
+                else
+                result=(q/r)-(p/r);
+            }
+            else{
+                long temp1=Math.abs(p);
+                long temp2=Math.abs(q);
+                p=temp2;
+                q=temp1;
+                if(p%r==0)
+                result=(q/r)-(p/r)+1;
+                else
+                result=(q/r)-(p/r);
+            }
+            System.out.println(Math.abs(result));
         }
     }
 }

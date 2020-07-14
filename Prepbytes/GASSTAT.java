@@ -26,12 +26,21 @@ public class GASSTAT {
             gas[i]=gas[i-size];
             cost[i]=cost[i-size];
         }
+        int arr[]=new int[size*2];
+        int sum=0, index=0;
+        for(int i=0; i<size*2; i++)
+        {
+            if(sum<0)
+            {
+            sum=0;
+            index=i;
+            }
+            sum=sum+gas[i]-cost[i];
+        }
 
         if(sumcost>sumgas)
         System.out.println(-1);
         else
-        {
-
-        }
+        System.out.println(index);
     }
 }   
