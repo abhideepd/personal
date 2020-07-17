@@ -4,10 +4,21 @@ public class GEMWAR {
     public static void main(String[] args)throws IOException {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
         String input[]=(x.readLine()).split(" ");
-        int N=Integer.parseInt(input[0]);
-        int M=Integer.parseInt(input[1]);
-        int X=Integer.parseInt(input[2]);
-        int Y=Integer.parseInt(input[3]);
+        long N=Long.parseLong(input[0]);//warriors
+        long M=Long.parseLong(input[1]);//gems
+        long X=Long.parseLong(input[2]);
+        long Y=Long.parseLong(input[3]);
         
+        System.out.println(func1(N, X, Y, M));
+    }
+    static long func1(long N, long X, long Y, long M)
+    {
+        long result=M/X;
+        if(result>N)
+        return N;
+        M=M%X;
+        N=N-result;
+        result=result+((M+(N*Y))/(X+Y));
+        return result;
     }
 }
