@@ -17,34 +17,37 @@ public class BUNST {
             min=arr[i];
             sum=sum+arr[i];
         }
-        if(K<N)
-        System.out.println(0);
-        else if(K>sum)
+        if(K>sum)
         System.out.println(0);
         else
         {
-            int result=sum/K;
-            if(result>min)
-            System.out.println(min);
-            else
-            System.out.println(result);
-            //System.out.println(xyz(K, 0, min, arr));
+            System.out.println(xyz(K, 0, min, arr));
         }
     }
     static int xyz(int K, int sum, int min, int[] arr)
     {
-        while(min!=0)
-        {
-            if(K==sum)
-            return min;
-
-            sum=0;
-            for(int i=0; i<arr.length; i++)
-            {
-                sum=sum+(arr[i]/min);
-            }
-            --min;
+        int l=1;
+        int r=1000000000;
+        int mid=(l+r)/2;
+        while(l<=r)
+        {   
+            int count=abc(mid, arr);
+    
+            if(count<K)
+            r=mid-1;
+            else
+            l=mid+1;
+            mid=(l+r)/2;
         }
-        return 0;
+        return mid;
+    }
+    static int abc(int mid, int []arr)
+    {
+        int count=0;
+        for(int i=0; i<arr.length; i++)
+        {
+            count=count+(arr[i]/mid);
+        }
+        return count;
     }
 }

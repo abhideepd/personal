@@ -21,10 +21,12 @@ public class GEMWAR1 {
 
         while(l<=r)
         {
-            long temp=(M+mid*Y)/X;
-            if(temp==(N-mid))
+            //System.out.println(l+" "+r+" "+mid);
+            long temp1=M+(N-mid)*Y;//kill 
+            long temp2=(mid*X);//evolve
+            if(temp1==temp2)
             return mid;
-            else if(temp>(N-mid))
+            else if(temp1<temp2)
             r=mid-1;
             else
             l=mid+1;
