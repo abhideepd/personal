@@ -15,11 +15,12 @@ public class EQUAL {
         int counter=1;
         int result=0;
         Arrays.sort(arr);
+        int min=0, max=arr.length-1;
         
         while(counter!=0)
         {
-            int min=min(arr);
-            int max=max(arr);
+            min=min(arr, min);
+            max=max(arr, max);
             //System.out.println(min+" "+max);
 
             int diff=arr[max]-arr[min];
@@ -34,29 +35,29 @@ public class EQUAL {
         }
         System.out.println(result);
     }
-    static int min(int []arr)
-    {
-        int min=arr[0];
-        int pos=0;
-        for(int i=0; i<arr.length; i++)
+    static int min(int []arr, int min)
+    {   
+        int min_val=arr[min];
+        int pos=min;
+        for(int i=0; i<=min+1; i++)
         {
-            if(min>arr[i])
+            if(min_val>arr[i])
             {
-                min=arr[i];
+                min_val=arr[i];
                 pos=i;
             }
         }
         return pos;
     }
-    static int max(int []arr)
+    static int max(int []arr, int max)
     {
-        int max=arr[0];
-        int pos=0;
-        for(int i=0; i<arr.length; i++)
+        int max_val=arr[max];
+        int pos=max;
+        for(int i=max-1; i<arr.length; i++)
         {
-            if(max<arr[i])
+            if(max_val<arr[i])
             {
-                max=arr[i];
+                max_val=arr[i];
                 pos=i;   
             }
         }

@@ -23,12 +23,18 @@ public class ARRMAX {
             for(int i=0; i<n; i++)
             {
                 int temp=i-k;
+                int temp1=0;
                 if((temp>=n)||(temp<0))
                 {
                     arr1[i]=arr[i];
                 }
                 else
-                arr1[i]=arr1[temp]+arr[i];
+                temp1=arr1[temp]+arr[i];//temp1
+
+                if(temp1<=arr[i])
+                arr1[i]=arr[i];
+                else
+                arr1[i]=temp1;
             }
             
             for(int i=0; i<n; i++)
