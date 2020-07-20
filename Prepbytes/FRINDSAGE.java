@@ -6,42 +6,30 @@ public class FRINDSAGE {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
         int N=Integer.parseInt(x.readLine());
         String input[]=(x.readLine()).split(" ");
-        int arr[]=new int[N];
+        int arr[]=new int[121];
         for(int i=0; i<N; i++)
         {
-            arr[i]=Integer.parseInt(input[i]);
-            //arr[i]=Integer.parseInt(x.readLine());
+            int temp=Integer.parseInt(input[i]);
+            arr[temp]=arr[temp]+1;
         }
-        Arrays.sort(arr);
         int result=0;
-        for(int i1=0; i1<N-1; i1++)
+        for(int a=0; a<121; a++)
         {
-            //System.out.println("xyz");
-            for(int i=i1+1; i<N; i++)
-            { 
-                int B=arr[i1];
-                int A=arr[i];
-                int A1=(A/2)+7;
-                //System.out.println(B+" "+A+" "+A1);
-                if(B>A1)
-                {
-                    if(B<=A)
-                    ++result;
-                }
-            }
-        }
-        for(int i1=N-1; i1>0; i1--)
-        {
-            for(int i=i1-1; i>=0; i--)
+            for(int b=0; b<121; b++)
             {
-                int B=arr[i1];
-                int A=arr[i];
-                int A1=(A/2)+7;
-                if(B>A1)
-                {
-                    if(B<=A)
-                    ++result;
-                }
+                if(b<=((0.5*a)+7))
+                continue;
+
+                if((b>100)&&(a<100))
+                continue;
+
+                if(b>a)
+                continue;
+
+                result=result+arr[a]*arr[b];
+
+                if(b==a)
+                result=result-arr[b];
             }
         }
         System.out.println(result);

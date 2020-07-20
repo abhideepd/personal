@@ -8,20 +8,20 @@ public class AMANSTR {
         for(int i1=0; i1<T; i1++)
         {
             String input=x.readLine();
-            int counter=0;
-            ArrayList<Integer> arr=new ArrayList<Integer>();
-            //count 
-            while(counter<=(input.length()-4))
+            int result=0;
+            for(int i=0; i<input.length()-4; i++)
             {
-                if((input.charAt(counter)=='a')&&(input.charAt(counter+1)=='m')&&(input.charAt(counter+2)=='a')&&(input.charAt(counter+3)=='n'))
+                int l=0, r=0;
+                if((input.charAt(i)=='a')&&(input.charAt(i+1)=='m')&&(input.charAt(i+2)=='a')&&(input.charAt(i+3)=='n'))
                 {
-                    arr.add(counter);
-                    counter=counter+4;
+                    l=i+1;
+                    r=(input.length()-1)-(i+3)+1;
+                    result=result+(l*r);
+                    System.out.println(l+" "+r+" "+result);
+                    i=i+3;
                 }
-                else
-                ++counter;
             }
-            System.out.println(arr);
+            System.out.println(result);
         }
     }
 }

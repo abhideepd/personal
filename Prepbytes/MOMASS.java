@@ -5,43 +5,74 @@ public class MOMASS {
 public static void main(String[] args)throws IOException {
     BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
     String input=x.readLine();
-    input=input+"-";
-    int sum=0;
-    int c=0;
-    char perv=input.charAt(0);
-    for(int i=1; i<input.length(); i++)
+    Stack<Integer> s=new Stack<Integer>();
+    Queue<String> q=new LinkedList<String>();
+
+    for(int i=0; i<input.length(); i++)
     {
-        if((input.charAt(i)=='C')||(input.charAt(i)=='H')||(input.charAt(i)=='O')||(input.charAt(i)=='-'))
+        q.add(input.charAt(i)+"");
+    }
+
+    while(!(q.isEmpty()))
+    {
+        String temp=q.peek();
+        //System.out.println(s+" "+temp);
+        if(temp.equals("C"))
         {
-            if(perv=='C')
-            {
-                if(c==0)
-                sum=sum+12;
-                else
-                sum=sum+12*c;
-            }
-            else if(perv=='H')
-            {
-                if(c==0)
-                sum=sum+1;
-                else
-                sum=sum+1*c;
-            }
-            else if(perv=='O')
-            {
-                if(c==0)
-                sum=sum+16;
-                else
-                sum=sum+16*c;
-            }
-            perv=input.charAt(i);
-            c=0;
+            s.push(12);
+            q.remove();
         }
-        else if((input.charAt(i)!='(')&&(input.charAt(i)!=')'))
+        else if(temp.equals("H"))
         {
-            c=c*10+Integer.parseInt(input.charAt(i)+"");
+            s.push(1);
+            q.remove();
+        }
+        else if(temp.equals("O"))
+        {
+            s.push(16);
+            q.remove();
+        }        
+        else if(temp.equals("("))
+        {
+            s.push(0);
+            q.remove();
+        }
+        else if(temp.equals(")"))
+        {
+            int counter=1;
+            int result=0;
+            while(counter!=0)
+            {
+                int temp1=s.pop();
+                if(temp1==0)
+                break;
+                result=result+temp1;
+            }
+            s.push(result);
+            q.remove();
+        }
+        else{
+            int r=0;
+            while(!(q.isEmpty()))
+            {
+                if((temp.equals("C"))||(temp.equals("H"))||(temp.equals("O"))||(temp.equals("("))||(temp.equals(")"))){
+                    break;
+                }
+                else{
+                    int temp1=Integer.parseInt(q.remove());
+                    r=r*10+temp1;
+                }
+                temp=q.peek();
+            }            
+            s.push(s.pop()*r);
         }
     }
-    System.out.println(sum);
+    int result=0;
+    //System.out.println(s);
+    while(!(s.isEmpty()))
+    {
+        result=result+s.pop();
+    }
+    System.out.println(result);
 }    
 }
