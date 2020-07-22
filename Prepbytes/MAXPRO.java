@@ -9,6 +9,7 @@ public class MAXPRO {
             int size=Integer.parseInt(x.readLine());
             String input[]=(x.readLine()).split(" ");
             int arr[]=new int[size];
+            System.out.println(input.length);
             for(int i=0; i<size; i++)
             {
                 arr[i]=Integer.parseInt(input[i]);

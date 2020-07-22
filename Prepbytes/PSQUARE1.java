@@ -22,31 +22,44 @@ public class PSQUARE1 {
             String input2[]=(x.readLine()).split(" ");
             String input3[]=(x.readLine()).split(" ");
 
+            HashMap<Integer, Integer> B=new HashMap<Integer, Integer>();
+            for(int i=0; i<M; i++)
+            {
+                B.put(Integer.parseInt(input3[i]), 0);
+            }
+
             for(int i=0; i<N; i++)
             {
                 int temp1=Integer.parseInt(input2[i]);
-                System.out.print(func(hm, temp1, input3)+" ");
+                long temp=temp1;
+                if(hm.containsKey(temp))
+                System.out.print(func(hm, B)+" ");
+                else
+                System.out.print(func(hm, temp1, B)+" ");
             }
             System.out.println();
         }
     }
-    public static int func(HashMap<Long, Long> hm, int a, String []b)
+    public static int func(HashMap<Long, Long> hm, int a, HashMap<Integer, Integer> B)
     {
-        long min=100000000;
-        int pos=-1;
-        for(int i=0; i<b.length; i++)
-        {
-            int temp=Integer.parseInt(b[i]);
-            long prod=temp*a;
+        //System.out.println("Chammak");
+        for (Map.Entry mapElement : B.entrySet()) { 
+            int key = (int)mapElement.getKey(); 
+            long prod=a*key;
             if(hm.containsKey(prod))
-            {
-                if(min>temp)
-                {
-                    min=temp;
-                    pos=i+1;
-                }
-            }
+            return key;
         }
-        return pos;
+        return -1;
+    }
+    public static int func(HashMap<Long, Long> hm, HashMap<Integer, Integer> B)
+    {
+        //System.out.println("Challo");
+        for (Map.Entry mapElement : B.entrySet()) { 
+            int key = (int)mapElement.getKey(); 
+            long temp=key;
+            if(hm.containsKey(temp))
+            return key;
+        }
+        return -1;
     }
 }

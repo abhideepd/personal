@@ -8,14 +8,25 @@ public class MEDIAN1 {
         int size=Integer.parseInt(input1[0]);
         int K=Integer.parseInt(input1[1]);
         String input2[]=(x.readLine()).split(" ");
-        //convert the array to string
         int arr[]=new int[size];
+        HashMap<Integer, Integer> array=new HashMap<Integer, Integer>();
         for(int i=0; i<size; i++)
         {
             arr[i]=Integer.parseInt(input2[i]);
+            if(!(array.containsKey(arr[i])))
+            array.put(arr[i], 1);
+            else
+            array.put(arr[i], array.get(arr[i])+1);
         }
-        Arrays.sort(arr);
-        int n=((size+1)/2)-1;
-        System.out.println(arr[n]+K);
+        int m=(size-1)/2;
+        m=arr[m];
+        while(K>0)
+        {
+            //int temp=array[m];
+            //array[m+1]=array[m+1]+temp;
+            ++m;
+            //K=K-temp;
+        }
+        System.out.println(m);
     }
 }
