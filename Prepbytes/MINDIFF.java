@@ -19,18 +19,23 @@ public class MINDIFF {
             System.out.println(mainfunc(arr, K));
         }
     }
-    public static int mainfunc(int []arr, int K)
+    public static long mainfunc(int []arr, int K)
     {
-        int min=1000000;
+        long min=1000000;
         int size=arr.length;
         for(int i1=0; i1<size-2; i1++)
         {
             int j=size-1;
-            int i=i1;
-            int sum=K-arr[i1];
+            int i=i1+1;
+            long sum=K-arr[i1];
             while(i<j)
             {
-                int temp=arr[i]+arr[j];
+                long temp=arr[i]+arr[j];
+
+                long diff=Math.abs(sum-arr[i]-arr[j]);
+                if(min>diff)
+                min=diff;
+
                 if(temp==sum)
                 {
                     return 0;
@@ -40,9 +45,6 @@ public class MINDIFF {
                 else
                 --j;
             }
-            int diff=Math.abs(sum-arr[i]-arr[j]);
-            if(min>diff)
-            min=diff;
         }
         return min;
     }

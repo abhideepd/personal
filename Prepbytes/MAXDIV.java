@@ -8,13 +8,6 @@ public class MAXDIV {
         int a=Integer.parseInt(input1[0]);
         int b=Integer.parseInt(input1[1]);
         ArrayList<Integer> fact=new ArrayList<Integer>();
-        for(int i=1; i<a; i++)
-        {
-            if((a%i==0)&&(b%i==0))
-            {
-                fact.add(i);
-            }
-        }
         int q=Integer.parseInt(x.readLine());
         for(int i=0; i<q; i++)
         {
@@ -22,27 +15,11 @@ public class MAXDIV {
             int low=Integer.parseInt(input2[0]);
             int high=Integer.parseInt(input2[1]);
 
-            //System.out.println("Answer: ");
-            
-            if(fact.get(0)>low)
-            {
-                System.out.println(-1);
-            }
-            else if(fact.get(fact.size()-1)<low)
-            {
-                System.out.println(-1);
-            }
-            else{
-                for(int i1=fact.size()-1; i1>=0; i1--)
-                {
-                    int temp=fact.get(i1);
-                    if((temp>=low)&&(temp<=high))
-                    {
-                        System.out.println(temp);
-                        break;
-                    }
-                }
-            }
+            System.out.println(outsource(a, b, low, high));
         }
+    }
+    static int outsource(int a, int b, int low, int high)
+    {
+        return 0;
     }
 }
