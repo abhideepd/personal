@@ -7,13 +7,13 @@ public class PSQUARE1 {
         int T=Integer.parseInt(x.readLine());
         HashMap<Long, Long> hm=new HashMap<Long, Long>();
 
-        for(int i=1; i<=100000; i++)
+        for(long i=1; i<=100005; i++)
         {
             long temp=i*i;
             long t=1;
             hm.put(temp, t);
         }
-
+//System.out.println(hm);
         for(int i1=0; i1<T; i1++)
         {
             String input1[]=(x.readLine()).split(" ");
@@ -22,12 +22,12 @@ public class PSQUARE1 {
             String input2[]=(x.readLine()).split(" ");
             String input3[]=(x.readLine()).split(" ");
 
-            HashMap<Integer, Integer> B=new HashMap<Integer, Integer>();
+            TreeMap<Integer, Integer> B=new TreeMap<Integer, Integer>();
             for(int i=0; i<M; i++)
             {
                 B.put(Integer.parseInt(input3[i]), 0);
             }
-
+            //System.out.println(B);
             for(int i=0; i<N; i++)
             {
                 int temp1=Integer.parseInt(input2[i]);
@@ -40,9 +40,8 @@ public class PSQUARE1 {
             System.out.println();
         }
     }
-    public static int func(HashMap<Long, Long> hm, int a, HashMap<Integer, Integer> B)
+    public static int func(HashMap<Long, Long> hm, int a, TreeMap<Integer, Integer> B)
     {
-        //System.out.println("Chammak");
         for (Map.Entry mapElement : B.entrySet()) { 
             int key = (int)mapElement.getKey(); 
             long prod=a*key;
@@ -51,9 +50,8 @@ public class PSQUARE1 {
         }
         return -1;
     }
-    public static int func(HashMap<Long, Long> hm, HashMap<Integer, Integer> B)
+    public static int func(HashMap<Long, Long> hm, TreeMap<Integer, Integer> B)
     {
-        //System.out.println("Challo");
         for (Map.Entry mapElement : B.entrySet()) { 
             int key = (int)mapElement.getKey(); 
             long temp=key;
