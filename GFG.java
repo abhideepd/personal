@@ -43,7 +43,7 @@ class GFG
 						found = false; 
 						break; 
 					} 
-				}
+				} 
 				// current character is K amazing 
 				if (found) 
 					return 1; 

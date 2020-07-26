@@ -14,7 +14,7 @@ public class main {
  int[] MatchPos = new int[5000];
  char[] ModifiedInput = input.toCharArray();
  int len = input.length();
- int index = 0
+ int index = 0;
  for(int i=0;i<len-3;i++){
   if(ModifiedInput[i]=='a' && ModifiedInput[i+1]=='m' && ModifiedInput[i+2]=='a' && ModifiedInput[i+3]=='n'){
    MatchPos[index++]=i;
@@ -34,6 +34,7 @@ public class main {
   ans-=3*index;  
  
  }
+ System.out.println("ans:"+ans+" "+Sum(len));
  out.println(ans==0 ? ans : Sum(len)-ans);
     }
 
