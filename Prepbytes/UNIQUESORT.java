@@ -14,23 +14,44 @@ public class UNIQUESORT {
             {
                 arr[i]=Integer.parseInt(input[i]);
             }
-            System.out.println(func(arr, 0, size));
+            System.out.println(answer(arr,arr, arr.length));
         }
     }
-    static int func(int []arr, int i, int j)
+    static int answer(int []arr1, int arr2[], int size)
     {
-        int flag=0;
-        for(int i1=i; i1<j-1; i1++)
+        if((check(arr1, size))||(check(arr2, size)))
         {
-            if(arr[i1]>arr[i1+1])
-            {
-                int temp=(j+j%2)/2;
-                func(arr, i, temp);
-                func(arr,temp, j);
-                flag=1;
-                break;
-            }
+            return size;
         }
-        return (j-i);
+        size=size/2;
+        int left[]=new int[size];
+        int right[]=new int[size];
+        for(int i=0; i<size; i++)
+        {
+            left[i]=arr1[i];
+        }
+        for(int i=size; i<size*2; i++)
+        {
+            right[i-size]=arr1[i];
+        }
+        answer(left, right, size);
+        for(int i=0; i<size; i++)
+        {
+            left[i]=arr2[i];
+        }
+        for(int i=size; i<size*2; i++)
+        {
+            right[i-size]=arr2[i];
+        }
+        return answer(left, right, size);
+    }
+    static boolean check(int []arr, int size)
+    {
+        for(int i=1; i<size; i++)
+        {
+            if(arr[i-1]>arr[i])
+            return false;
+        }
+        return true;
     }
 }
