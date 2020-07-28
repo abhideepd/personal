@@ -11,13 +11,10 @@ public class TRIPLET {
             String input[]=(x.readLine()).split(" ");
             int arr[]=new int[size];
             int array[]=new int[1000001];
-            int max=Integer.MIN_VALUE;
             for(int i=0; i<size; i++)
             {
                 arr[i]=Integer.parseInt(input[i]);
                 array[arr[i]]=array[arr[i]]+1;
-                if(max<arr[i])
-                max=arr[i];
             }          
             int new_arr[]=new int[size];
             int k=0;
@@ -26,28 +23,37 @@ public class TRIPLET {
                 int counter=array[i];
                 while(counter-->0)
                 new_arr[k++]=i;
+                //new_arr[i]=arr[i];
             }
-            int ans1=-1, ans2=-1, ans3=-1;
-            for(int i=0; i<size-2; i++)
+            
+            //Arrays.sort(arr);
+
+            //for(int i=0; i<size; i++)
+            //System.out.println(new_arr[i]);
+            
+            int n1=-1, n2=-1, n3=-1;
+            for(int i=size-1; i>=0; i--)
             {
-                for(int j=i+1; j<size-1; j++)
+                int l=0, r=i-1;
+                while(l<r)
                 {
-                    long sum=new_arr[i]+new_arr[j];
-                    if(sum>max)
-                    break;
-                    if(array[(int)sum]!=0)
-                    {
-                        if(sum>ans3)
-                        {
-                            ans1=new_arr[i];
-                            ans2=new_arr[j];
-                            ans3=(int)sum;
-                        }
+                    long sum=new_arr[r]+new_arr[l];
+                    if(sum>new_arr[i])
+                    --r;
+                    else if(sum<new_arr[i])
+                    ++l;
+                    else{
+                        n1=new_arr[i];
+                        n2=new_arr[l];
+                        n3=new_arr[r];
+                        break;
                     }
                 }
-            }
-            if(ans1!=-1)
-            System.out.println(ans3+" "+ans1+" "+ans2);
+                if(n1!=-1)
+                break;
+            }       
+            if(n1!=-1)
+            System.out.println(n1+" "+n2+" "+n3);
             else
             System.out.println(-1);
         }
