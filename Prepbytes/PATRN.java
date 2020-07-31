@@ -7,21 +7,29 @@ public class PATRN {
         for(int i=0; i<T; i++)
         {
             int input=Integer.parseInt(x.readLine());
-            System.out.print(input+" ");
-            answer(input, input-5);
+            if(input==0)
+            System.out.print(0);
+            else
+            answer(input, input, 0);
+            System.out.println();
         }
     }
-    static void answer(int a, int b)
+    static void answer(int a, int b, int count)
     {
         System.out.print(b+" ");
 
-        if(b==a)
-        return;
-
         if(b>0)
-        answer(a, b-5);
+        {
+            if(count==0)
+            answer(a, b-5, count);
 
-        else if(b<=0)
-        answer(a, b+5);
+            else if(b==a)
+            return;
+
+            else
+            answer(a, b+5, 1);    
+        }
+        else
+        answer(a, b+5, 1);
     }
 }
