@@ -31,18 +31,11 @@
                     valid[arr[i]]=true;
                     ++counter;
                 }
-                else{
+                else if(valid[arr[i]]==true){
                     if(progression[arr[i]]==0)
                     {
                         int temp=i-prev_pos[arr[i]];
                         progression[arr[i]]=temp;
-                        int i2=i-temp-temp;
-                        if(i2>=0)
-                            {
-                                if(arr[i2]!=arr[i])
-                                valid[arr[i]]=false;
-                                --counter;
-                            }
                     }
                     else{
                         int temp=i-prev_pos[arr[i]];
@@ -50,17 +43,6 @@
                         {
                             valid[arr[i]]=false;
                             --counter;
-                        }
-                        else 
-                        {
-                            int i1=temp+i;
-                            
-                            if(i1<size)
-                            {
-                                if(arr[i1]!=arr[i])
-                                valid[arr[i]]=false;
-                                --counter;
-                            }                            
                         }
                     }
                 }
