@@ -17,6 +17,26 @@ public class PREPSHOPPING {
                 arr[i]=Integer.parseInt(input2[i]);
             }
             Arrays.sort(arr);
+            System.out.println(out(arr, K));
         }
+    }
+    static int out(int []arr, int K)
+    {
+        int sum=arr[0], ans=0;
+        for(int i=1; i<arr.length; i++)
+        {
+            if(sum>K)
+            return ans;
+
+            else if(sum==K)
+            return ++ans;
+
+            if(arr[i-1]!=arr[i])
+            {
+                sum=sum+arr[i];
+                ++ans;
+            }
+        }
+        return ++ans;
     }
 }
