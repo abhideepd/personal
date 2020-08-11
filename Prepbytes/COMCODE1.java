@@ -13,6 +13,7 @@ public class COMCODE1 {
             Stack<String> s=new Stack<String>();
             for(int i=0; i<input.length(); i++)
             {
+                //System.out.print(s+"--->"+temp_ans);
                 char temp=input.charAt(i);
                 if(temp=='<')
                 s.push(temp+"");
@@ -28,7 +29,9 @@ public class COMCODE1 {
                         temp_ans=0;
                     }
                 }
+                System.out.println();
             }
+            //System.out.println(s+"--->"+temp_ans);
             System.out.println(temp_ans>ans?temp_ans:ans);
         }
     }
