@@ -9,20 +9,22 @@ public class MINCOSROPE {
         {
             int size=Integer.parseInt(x.readLine());
             String input[]=(x.readLine()).split(" ");
-            PriorityQueue<Integer> q=new PriorityQueue<Integer>();
+            PriorityQueue<Long> q=new PriorityQueue<Long>();
             for(int i=0; i<size; i++)
             {
-                int temp=Integer.parseInt(input[i]);
+                long temp=Long.parseLong(input[i]);
                 q.offer(temp);
             }
             if(q.size()==1)
             System.out.println(q.poll());
             else{
-                int sum=0;
-                while(q.size()!=0)
+                long sum=0;
+                while(q.size()>1)
                 {
-                    int min1=q.poll();
-                    int min2=q.poll();
+                    System.out.println(q);
+                    long min1=q.poll();
+                    long min2=q.poll();
+                    q.offer(min1+min2);
                     sum=sum+min1+min2;
                 }
                 System.out.println(sum);
