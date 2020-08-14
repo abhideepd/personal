@@ -2,18 +2,9 @@ package Practice;
 import java.util.*;
 public class xy {
     public static void main(String[] args) {
-        PriorityQueue<Integer> p=new PriorityQueue<Integer>();
-        p.offer(23);
-        p.offer(10);
-        p.offer(34);
-        p.offer(5);
-        p.offer(13);
-        p.offer(14);
-        p.offer(2);
-        p.offer(27);
-        p.offer(5);
-
-        while(p.size()!=0)
-        System.out.println(p.poll());
+        long a=Long.parseUnsignedLong("999999999999999999");
+                                       //999999999999999999
+        //long b=999999999999999999;//9888888888888888880
+        System.out.println(a);
     }
 }

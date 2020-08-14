@@ -13,6 +13,7 @@ public class LRGEGCD
             //take user input
             String input[]=(x.readLine()).split(" ");
             long a=Long.parseLong(input[0]);
+    //        System.out.println(a);
             String b=input[1];
             long res=0;
             for(int i=0; i<b.length(); i++)
@@ -20,9 +21,11 @@ public class LRGEGCD
                 String temp1=b.charAt(i)+ "";
                 int temp2=Integer.parseInt(temp1);
                 res=res*10+temp2;
+  //              System.out.println("before: "+res);
                 res=res%a;
+//                System.out.println("after: "+res);
             }
-           // System.out.println(res+" "+a);
+            //System.out.println(res+" "+a);
             System.out.println(gcd(res, a));
         }
     }
