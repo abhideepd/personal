@@ -1,14 +1,18 @@
 package Prepbytes;
 import java.io.*;
-public class MAXDRAWS {
+public class TWOTEN {
     public static void main(String[] args)throws IOException {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
         int T=Integer.parseInt(x.readLine());
-        for(int i=0; i<T; i++)
-        {
+         while(T-->0)
+         {
             int n=Integer.parseInt(x.readLine());
-            
-            System.out.println(n+1);
-        }
-    }    
+            if(n%10==5)
+            System.out.println(1);
+            else if(n%10==0)
+            System.out.println(0);
+            else
+            System.out.println(-1);
+         }
+    }
 }
