@@ -10,24 +10,25 @@ public class UNIQUEARRAY {
             int size=Integer.parseInt(x.readLine());
             String input[]=(x.readLine()).split(" ");
             int arr[]=new int[size];
-            boolean visited[]=new boolean[size];
-            int ans=-1, temp=0;
             for(int i=0; i<size; i++)
             {
                 arr[i]=Integer.parseInt(input[i]);
-                if(visited[i]==false)
-                ++temp;
-                if(visited[arr[i]]==false)
-                ++temp;
-                if((visited[i]==true)||(visited[arr[i]]==true))
+            }
+            int ans=1;
+            boolean visited[]=new boolean[size];
+            for(int i=0; i<size; i++)
+            {
+                int temp=i;
+                int sum=0;
+                while(visited[temp]!=true)
                 {
-                    if(ans<temp)
-                    ans=temp;
-                    temp=0;
+                    visited[temp]=true;
+                    temp=arr[temp];
+                    ++sum;
                 }
-                visited[i]=true;
-                visited[arr[i]]=true;
-            }            
+                if(sum>ans)
+                ans=sum;
+            }
             System.out.println(ans);
         }
     }
