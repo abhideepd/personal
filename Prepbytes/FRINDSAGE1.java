@@ -9,7 +9,19 @@ public class FRINDSAGE1 {
         int arr[]=new int[studs];
         for(int i=0; i<studs; i++)
         arr[i]=Integer.parseInt(input[i]);
-        Arrays.sort(arr);
-        
+        int age[]=new int[121];
+
+        for(int i=0; i<studs; i++)
+        {
+            age[arr[i]]=age[arr[i]]+1;
+        }
+
+        int ans=0;
+
+        for(int i=1; i<=120; i++)
+        {
+           
+        }
+        System.out.println(ans);
     }
 }
