@@ -9,28 +9,18 @@ public class MAXSET {
             String input[]=(x.readLine()).split(" ");
             long L=Long.parseLong(input[0]);
             long R=Long.parseLong(input[1]);
+            
+            int R_Digit=(int)Math.ceil((Math.log10(R))/Math.log10(2));
+            long a=(1<<R_Digit)-1;
 
-            long ans=-1, res=-1;
-            while(L++<=R)
+            while(a>1)
             {
-                long temp=count(L);
-                if(temp>ans)
-                {
-                    ans=temp;
-                    res=L;
-                }
+                if((a>=L)&&(a<=R))
+                break;
+                a=a>>1;
             }
-            System.out.println(res);
+            //int ans=(int)Math.ceil((Math.log10(R))/Math.log10(2));
+            System.out.println(a);
         }
-    }
-    static long count(long a)
-    {
-        long cnt=0;
-        while(a!=0)
-        {
-            ++cnt;
-            a=a&(a-1);
-        }
-        return cnt;
     }
 }

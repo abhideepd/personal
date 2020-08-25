@@ -7,22 +7,35 @@ public class FIRNONRECHA {
         int T=Integer.parseInt(x.readLine());
         for(int i1=0; i1<T; i1++)
         {
-            int size=Integer.parseInt(x.readLine())+1;
+            int size=Integer.parseInt(x.readLine());
             String input=x.readLine();
-            input=input+'~';
             Queue<Character> q=new LinkedList<Character>();
-            
-            for(int i=0; i<size; i++)
+            int counter=0;
+            for(int i=size-1; i>=0; i--)
             {
-                char temp=input.charAt(i);                
-                q.add(temp);
-                if(q.size()!=0){
-                    if(temp==q.peek())
+                //System.out.println(i+" "+input.charAt(i));
+                System.out.println(counter+" "+q);
+
+                if(q.size()==0)
+                {
+                    q.add(input.charAt(i));
+                    ++counter;
+                    continue;
+                }
+                if(q.peek()!=input.charAt(i))
+                {
+                    q.add(input.charAt(i));
+                    ++counter;
+                }
+                else
+                {
+                    //System.out.println("wdcdw");
                     q.add(q.remove());
+                    --counter;
                 }
             }
-            System.out.println(q);
-            if(q.size()==0)
+            System.out.println(counter);
+            if(counter==0)
             System.out.println(-1);
             else
             System.out.println(q.peek());

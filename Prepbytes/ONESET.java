@@ -10,6 +10,7 @@ public class ONESET {
         for(long i=L; i<=R; i++)
         {
             ans=ans+count(i);
+            //System.out.println(i+" "+count(i));
         }
         System.out.println(ans);
     }
@@ -17,19 +18,21 @@ public class ONESET {
     {
         if(a==2)
         return 1;
-        long aa=a;
-        double temp1=Math.log10(aa);
-        double temp2=Math.log10(2);
-        int digits=(int)(Math.ceil(temp1/temp2));
-        long two=(long)Math.pow(2, digits);
-        two=two-1;
-        long diff=two-a;
-        //System.out.println(a+" ---> "+diff);
-        for(int i=1; i<=diff; i=i*2)
-        {
-            if(i==diff)
-            return 1;
-        }
-       return 0;
+        if(a==1)
+        return 0;
+        if(a==0)
+        return 1;
+
+        //long a=23;
+        int digits=(int)(Math.ceil((Math.log10(a))/Math.log10(2)));
+        long num=(long)Math.pow(2, digits)-1;
+        //System.out.println(num+" "+a+"----"+(num^a));
+        long temp=num-a;
+        if(temp==0)
+        return 0;
+        if((temp&(temp-1))==0)
+        return 1;
+        else
+        return 0;
     }
 }

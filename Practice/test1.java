@@ -1,23 +1,33 @@
 package Practice;
 import java.util.*;
-import java.io.*;
+/**
+ * test1
+ */
 public class test1 {
-    public static void main(String[] args)throws IOException {
-        BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
-        HashMap<Integer, Integer> hm=new HashMap<Integer, Integer>();
-        String input[]=(x.readLine()).split(" ");
 
-        for(int i=0; i<input.length; i++)
+ public static void main(String[] args) {
+     String s="abc";
+    char arr[]=s.toCharArray();
+     System.out.println(1<<(s.length()));
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+     for(int i=0; i<(1<<s.length()); i++)
+     {
+        int n=i;
+        String temp="";
+        int k=0;
+        while(n!=0)
         {
-            int temp=Integer.parseInt(input[i]);
-
-            if(hm.containsKey(temp))
-            {
-                hm.put(temp, hm.get(temp)+1);
-            }
-            else
-            hm.put(temp, 1);
+            if((n&1)!=0)
+            temp=temp+arr[k];
+            ++k;
+            n=n>>1;
         }
-        System.out.println(hm);
-    }
+        System.out.println(temp);
+     }
+     char t='A';
+     int temp=(int)t;
+     System.out.println(temp);
+     int a=3;
+     int b=-a;
+ }   
 }
