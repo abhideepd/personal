@@ -37,7 +37,7 @@ public class xy {
         int xss[]=func(arr1);
     }
     static int[] func(Integer[] arr)
-    {
+    {   
         return arr;
     }
     public static Integer count(Integer a)
@@ -50,5 +50,6 @@ public class xy {
         }
         return cnt;
     }*/
+    //int a=Integer.M ();
 }
 }
