@@ -30,13 +30,14 @@ public class DIVISOR {
                 int r=Integer.parseInt(input_query[1]);
                 ans.add(solution(l-1, r-1, 0, size-1, 0));
             }
+            //print();
             print(ans);
         }
     }
     static int solution(int l, int r, int seg_left, int seg_right, int pos)
     {
         int mid=(seg_left+seg_right)/2;
-        if((seg_left<=l)&&(seg_right>=r))
+        if((seg_left>=l)&&(seg_right<=r))
         return seg_tree[pos];
         else if((seg_left>r)||(seg_right<l))
         return 0;
@@ -44,8 +45,10 @@ public class DIVISOR {
     }
     static void print()
     {
+        System.out.println("Answer:- ");
         for(int i=0; i<seg_tree.length; i++)
         System.out.print(seg_tree[i]+" ");
+        System.out.println();
     }
     static void construct(int l, int r, int pos, int []arr)
     {
