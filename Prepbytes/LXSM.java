@@ -13,23 +13,26 @@ public class LXSM {
 
             String str=input[0];
             int q=Integer.parseInt(input[1].trim());
-            //size=str.length();
+            int c=1;
             arr=new int[str.length()+1];
 
             for(int i=1; i<=str.length(); i++)
             {
                 int temp=(int)str.charAt(i-1);
                 
-                arr[i]=temp;
+                arr[c++]=temp;
 
-                insert(i); ++size;
+                ++size; insert(i);
 
                 /*print();
                 System.out.print(" tmep: "+temp+" "+(char)temp);
                 System.out.println();*/
 
                 if(size==q)
-                print(extract_min());
+                {
+                    print(extract_min());
+                    --c;
+                }
             }
             //print_full();
             print();
@@ -37,10 +40,12 @@ public class LXSM {
     }
     static void print_full()
     {
+        System.out.println();
+
         for(int i=0; i<arr.length; i++)
         System.out.print((char)arr[i]+" ");
 
-        System.out.println();
+        System.out.println(" size: "+size);
     }
     static void print()
     {
