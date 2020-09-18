@@ -44,26 +44,27 @@ public class DTCYC {
             }
         }
         System.out.println(graph);
+
         for(int i=0; i<vertex; i++)
         {
-            if(visited[i]==false)
-            {
-                if(graph.containsKey(i))
-                {                
-                    ArrayList<Integer> temp=graph.get(i);
-                    check(i, temp);
-                    visited[i]=true;
-                    if(ans==true)
-                    {
-                        break;
-                    }
-                }
-            }
+           if(visited[i]!=true)
+           {
+               if(graph.containsKey(i))
+               {
+                   check(i, i);
+               }
+           }
+           if(ans==true)
+           break;
         }
-        System.out.println(ans==true?"Yes":"No");
+        //System.out.println(ans==true?"Yes":"No");
     }
-    static void check(int root, ArrayList<Integer> arr)
+
+    static void check(int i,int root)
     {
+       visited[i]=true;
+       ArrayList<Integer> arr=graph.get(i);
+
        while(arr.size()!=0)
        {
             int temp=arr.remove(0);
@@ -71,10 +72,21 @@ public class DTCYC {
             if(temp==root)
             continue;
 
-            if(visited[temp])
+            if(visited[temp]==true)
+            {
+                ans=true;
+                return;
+            }
 
-            ArrayList<Integer> ar=graph.get(temp);
-            check(temp, ar);
+            check(temp, i);
        }
+    }
+
+    static void print()
+    {
+        for(int i=0; i<visited.length; i++)
+        {
+            System.out.println(i+" --> "+visited[i]);
+        }
     }
 }
