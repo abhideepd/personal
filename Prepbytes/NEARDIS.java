@@ -25,23 +25,41 @@ public class NEARDIS {
                 ans[i]=Integer.MAX_VALUE;
             }
 
-            String input2[]=(x.readLine()).split(" ");
-            matrix=new int[N][M];
+            //System.out.println(graph);
             
+            String input2[]=(x.readLine()).split(" ");          
             visited=new boolean[N*M+1];
-            int k=0;
             Queue<Integer> q=new LinkedList<Integer>();
-            for(int i=0; i<N; i++)
+            for(int i=0; i<input2.length; i++)
             {
-                for(int j=0; j<M; j++)
+                int temp=Integer.parseInt(input2[i]);
+                if(temp==1)
                 {
-                    matrix[i][j]=Integer.parseInt(input2[k]);
-
-                    if(matrix[i][j]==1)
-                    q.add(++k);
+                    q.add(i+1);
+                    ans[i+1]=0;
+                    visited[i+1]=true;
                 }
             }
-            
+            bfs(q);
+            print_ans();
+        }
+    }
+    static void bfs(Queue <Integer> q)
+    {
+        while(q.size()!=0)
+        {
+            int x=q.poll();
+            ArrayList<Integer> arr=graph.get(x);
+            while(arr.size()!=0)
+            {
+                int temp=arr.remove(0);
+                if(visited[temp]==false)
+                {
+                    visited[temp]=true;
+                    ans[temp]=Math.min(ans[temp], ans[x]+1);
+                    q.add(temp);
+                }
+            }
         }
     }
     static void creategraph()
@@ -80,7 +98,17 @@ public class NEARDIS {
                     ArrayList<Integer> temp1=graph.get(k);
                     temp1.add(k+1);
                     temp1.add(k+M);
+                    graph.put(k, temp1);
+
+                    ArrayList<Integer> temp2=graph.get(k+1);
+                    temp2.add(k);
+                    graph.put(k+1, temp2);
+
+                    ArrayList<Integer> temp3=graph.get(k+M);
+                    temp3.add(k);
+                    graph.put(k+M, temp3);
                 }
+                ++k;
             }
         }
     }
@@ -102,12 +130,10 @@ public class NEARDIS {
             System.out.println();
         }
     }
-    static void bfs(int i, int j, int k)
-    {
-
-    }
     static void print_ans()
     {
-
+        for(int i=1; i<=N*M; i++)
+        System.out.print(ans[i]+" ");
+        System.out.println();
     }
 }

@@ -6,6 +6,7 @@ public class WARZN {
     static HashMap<Integer, Integer> LandMine=new HashMap<Integer, Integer>();
     static int vertex, L;
     static int ans=0;
+    static boolean visited[];
     public static void main(String []args)throws IOException
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
@@ -27,7 +28,46 @@ public class WARZN {
             String temp_input[]=(x.readLine()).split(" ");
             int u=Integer.parseInt(temp_input[0]);
             int v=Integer.parseInt(temp_input[1]);
-            ArrayList<Integer> temp_arr=new ArrayList<Integer>();
+            create_graph(u, v);
+        }
+        //System.out.println(graph);
+        if(vertex==1)
+        System.out.println(0);
+
+        else
+        {
+            visited=new boolean[vertex];       
+            dfs(0, L);
+            System.out.println(ans);
+        }
+    }
+    static void dfs(int n, int bomb)
+    {
+        visited[n]=true;
+
+        if(LandMine.containsKey(n))
+        --bomb;
+        else
+        bomb=L;
+
+        if(bomb<0)
+        return;
+        
+        ArrayList<Integer> arr=graph.get(n);
+
+        if((arr.size()==1)&&(n!=0))
+        ++ans;
+
+        while(arr.size()!=0)
+        {
+            int temp=arr.remove(0);
+            if(visited[temp]==false)
+            dfs(temp, bomb);
+        }
+    }
+    static void create_graph(int u, int v)
+    {
+        ArrayList<Integer> temp_arr=new ArrayList<Integer>();
 
             if(!graph.containsKey(u))
             {
@@ -52,56 +92,5 @@ public class WARZN {
                 temp_arr.add(u);
                 graph.put(v, temp_arr);
             }
-        }
-        
-        System.out.println(LandMine);
-        System.out.println(graph);
-
-        System.out.println("O/P");
-        calculator(L, 0, 0);
-        System.out.println("ans: ");
-        System.out.println(ans);
-    }
-    static void print()
-    {
-        
-    }
-    static void calculator(int L, int root, int i)
-    {
-        System.out.println(root+" "+i);
-        if(LandMine.containsKey(i))
-        --L;
-
-        if(L<0)
-        return;
-
-        ArrayList<Integer> arr=graph.get(i);
-
-        if((arr.size()==1)&&(i!=0))
-        {
-            int temp=arr.remove(0);
-
-            if(LandMine.containsKey(temp))
-            --L;
-
-            if(L>=0)
-            {
-                System.out.println("test_1");
-                System.out.println(root+" "+i);
-                ++ans;
-            }
-
-            return;
-        }
-
-        while(arr.size()!=0)
-        {
-            int temp=arr.remove(0);
-
-            //if(temp==root)
-            //continue;
-            
-            calculator(L, i, temp);
-        }
     }
 }
