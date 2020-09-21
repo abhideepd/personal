@@ -1,4 +1,4 @@
-//package Prepbytes;
+package Prepbytes;
 
 import java.util.LinkedList;
 import java.util.*;
@@ -86,9 +86,6 @@ class Node
 static int ans=0;
 int findTurnCount(Node node) {
     //write your code here
-    if(node==null)
-    return 0;
-    
     function(node, 1, 1, 0);
     return ans;    
 }
@@ -118,7 +115,7 @@ void function(Node n, int lt, int rt, int a)
 }
 
 }
-public class Main {
+public class MAXTRN {
 
     public static void main(String[] args) {
         // write your code here

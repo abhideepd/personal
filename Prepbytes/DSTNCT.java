@@ -1,4 +1,4 @@
-//package Prepbytes;
+package Prepbytes;
 
 import java.util.LinkedList;
 import java.util.*;
@@ -69,7 +69,7 @@ class BinaryTree {
         node = null;
     }
 
-/* Complete the function findTurnCount given below
+/* Complete the function findDistinctCount given below
 For your reference
 
 class Node
@@ -83,49 +83,43 @@ class Node
     }
 }
 */
-static int ans=0;
-int findTurnCount(Node node) {
+static int ans=-1;
+int findDistinctCount(Node node) {
     //write your code here
+    HashMap<Long, Integer> visited=new HashMap<Long, Integer>();
     if(node==null)
     return 0;
-    
-    function(node, 1, 1, 0);
-    return ans;    
+    function(visited, node);
+    return ans;
 }
-void function(Node n, int lt, int rt, int a)
+static void function(HashMap<Long, Integer> visited, Node node)
 {
-    if((n.left==null)&&(n.right==null))
+    visited.put(node.value, 1);
+
+    if((node.left==null)&&(node.right==null))
     {
-        if(ans<a)
-        ans=a;
+        if(ans<visited.size())
+        ans=visited.size();
         return;
     }
-    else
-    {
-        if(n.left!=null)
-        {
-            if(lt!=1)
-            ++a;
-            function(n.left, 1, 0, a);
-        }
-        if(n.right!=null)
-        {
-            if(rt!=1)
-            ++a;
-            function(n.right, 0, 1, a);
-        }
-    }
+    if(node.left!=null)
+    function(visited, node.left);
+
+    if(node.right!=null)
+    function(visited, node.right);
+}
 }
 
-}
-public class Main {
+
+
+public class DSTNCT {
 
     public static void main(String[] args) {
         // write your code here
             BinaryTree bt = new BinaryTree();
             bt.root = bt.createTreeByLevelTree();
             bt.root = bt.replaceNegativeOne(bt.root);
-            System.out.println(bt.findTurnCount(bt.root));
+            System.out.println(bt.findDistinctCount(bt.root));
             bt.deleteTree(bt.root);
     }
 }
