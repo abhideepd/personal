@@ -1,9 +1,10 @@
 package Prepbytes;
 import java.io.*;
 public class SQNUM {
-    static int arr[];
-    static int size;
-    static int mod=1000000000+7;
+    static long heap[];
+    static int size=0;
+    static int size_of_heap=0;
+    static long mod=1000000000+7;
     public static void main(String []args)throws IOException
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
@@ -12,78 +13,81 @@ public class SQNUM {
         {
             size=Integer.parseInt(x.readLine());
             String input[]=(x.readLine()).split(" ");   
-            arr=new int[size+1];         
-            for(int i=1; i<=size; i++)
+            heap=new long[size+1];         
+            for(int i=0; i<size; i++)
             {
-                int temp=Integer.parseInt(input[i-1]);
-                arr[i]=temp;
-                increase(i);
+                int temp=Integer.parseInt(input[i]);
+                insert(temp);
             }
-            //print();
-            while(size!=1)
+            //print_heap();
+            while(size_of_heap!=1)
             {
-                int P=((extract_max())*3)%mod;
-                //print();
-                int Q=((extract_max())*2)%mod;
-                
-                //int temp=((P*3)-(Q*2))%mod;
-                int temp=P-Q;
-                arr[++size]=temp;
-                //print(); System.out.print("temp: "+temp+" P:"+P+" Q:"+Q);
-                increase(size);
-                //print();
+                long P=extract_max();
+                long Q=extract_max();                
+                long result=((P*3)%mod-(Q*2)%mod)%mod;
+                //System.out.println("P: "+P+" Q: "+Q+" result: "+result);
+                insert(result);
             }
-            //System.out.println(arr[1]);
-            print();
+            System.out.println(extract_max());
         }
     }
-    static void print()
+    static void print_heap()
     {
-        //System.out.println();
-        for(int i=1; i<=size; i++)
-        System.out.print(arr[i]+" ");
+        System.out.println("HEAP:-");
+        for(int i=1; i<=size_of_heap; i++)
+        System.out.print(heap[i]+" ");
         System.out.println();
     }
-    static int extract_max()
+    static void insert(long n)
     {
-        int ans=arr[1];
-        arr[1]=arr[size];
-        --size;
+        ++size_of_heap;
+        heap[size_of_heap]=n;
+        insert_in_heap(size_of_heap);
+    }
+    static long extract_max()
+    {
+        long max=heap[1];
+        swap(1, size_of_heap);
+        --size_of_heap;
         max_heapify(1);
-        return ans;
+        return max;
     }
     static void max_heapify(int root)
     {
+        int largest=root;
         int left=root*2;
         int right=root*2+1;
-        int biggest=root;
 
-        if((left<=size)&&(arr[left]>arr[biggest]))
-        biggest=left;
-
-        if((right<=size)&&(arr[right]>arr[biggest]))
-        biggest=right;
-
-        if(biggest!=root)
+        if((left<=size_of_heap)&&(heap[largest]<heap[left]))
         {
-            swap(biggest, root);
-            max_heapify(biggest);
+            largest=left;
+        }
+
+        if((right<=size_of_heap)&&(heap[largest]<heap[right]))
+        {
+            largest=right;
+        }
+
+        if(largest!=root)
+        {
+            swap(largest, root);
+            max_heapify(largest);
         }
     }
-    static void increase(int n)
+    static void insert_in_heap(int n)
     {
         if(n==1)
         return;
 
-        if(arr[n/2]<arr[n])
-        swap(n/2,  n);
+        if(heap[n/2]<heap[n])
+        swap(n/2, n);
 
-        increase(n/2);
+        insert_in_heap(n/2);
     }
     static void swap(int a, int b)
     {
-        int temp=arr[a];
-        arr[a]=arr[b];
-        arr[b]=temp;
+        long temp=heap[a];
+        heap[a]=heap[b];
+        heap[b]=temp;
     }
 }
