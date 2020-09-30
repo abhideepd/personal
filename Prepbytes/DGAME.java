@@ -2,39 +2,50 @@ package Prepbytes;
 import java.io.*;
 import java.util.*;
 public class DGAME {
+    static ArrayList<Integer> arr=new ArrayList<Integer>();
     public static void main(String []args)throws IOException
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
         int t=Integer.parseInt(x.readLine());
         for(int i1=0; i1<t; i1++)
         {
+            arr=new ArrayList<Integer>();
             String input[]=(x.readLine()).split(" ");
-            int N=Integer.parseInt(input[0]);
+            String N=(input[0]);
             int M=Integer.parseInt(input[1]);
-            ArrayList<Integer> digit_array=digit_to_array(N);
-            int k=0;
-
-            while(M-->0)
+            input_in_arraylist(N);
+            for(int i=0; i<M; i++)
+            extract_min(M);
+            print_ans();
+        }
+    }
+    static void print_ans()
+    {
+        for(int i=0; i<arr.size()-1; i++)
+        {
+            if(arr.get(i)!=10)
+            System.out.print(arr.get(i));
+        }
+        System.out.println();
+    }
+    static void extract_min(int M)
+    {
+        for(int i=1; i<arr.size(); i++)
+        {
+            if(arr.get(i-1)<arr.get(i))
             {
-                digit_array.set(k++, -1);
-            }
-            int flag=0;
-            while(flag!=-1)
-            {
-                
+                //arr.set(i-1, 10);
+                arr.remove(i-1);
+                break;
             }
         }
     }
-    static ArrayList<Integer> digit_to_array(int N)
+    static void input_in_arraylist(String a)
     {
-        ArrayList<Integer> arr=new ArrayList<Integer>();
-        while(N!=0)
+        for(int i=0; i<a.length(); i++)
         {
-            int temp=N%10;
-            arr.add(temp);
-            N=N/10;
+            arr.add(Integer.parseInt(a.charAt(i)+""));
         }
-        Collections.sort(arr);
-        return arr;
+        arr.add(11);
     }
 }

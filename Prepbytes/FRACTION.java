@@ -2,6 +2,7 @@ package Prepbytes;
 import java.io.*;
 import java.util.*;
 public class FRACTION {
+    static ArrayList<Long> answer=new ArrayList<Long>();
     public static void main(String []args)throws IOException
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
@@ -9,36 +10,75 @@ public class FRACTION {
         for(int i1=0; i1<t; i1++)
         {
             String input[]=(x.readLine()).split(" ");
-            int N=Integer.parseInt(input[0]);
-            int D=Integer.parseInt(input[1]);
-            if(N<D)
+            long N=Long.parseLong(input[0]);
+            Long D=Long.parseLong(input[1]);
+            //long temp=gcd(N, D);
+            //N=N/temp;
+            //D=D/temp;
+            
+            /*if(N<D)
             {
-                int k=2;
-                int c=N, a=D, b=k;
-                ArrayList<Integer> ans=new ArrayList<Integer>();
-                while(c!=1)
+                ans(N, D);
+            }
+            else
+            {
+                //answer.add(N/D);
+                if(D==1)
                 {
-                    System.out.println(a+" "+b+" "+c);
-                    c=b*c-a;
-                    a=a*b;
-                    ans.add(b);
-                    ++b;
+                    //System.out.print("1/"+N);
                 }
-                ans.add(a);
-                print_ans(ans);
-            }
-            else if(N==D)
-            {
-                System.out.println(1);
-            }
+                else
+                {
+                    //System.out.print("1/"+(N/D)+" ");
+                    ans(N%D, D);
+                }
+            }*/
+            //System.out.println(answer);
+            //print_ans();
+            ans(N, D);
+            System.out.println();
         }
     }
-    static void print_ans(ArrayList<Integer> arr)
+    static void ans(long a, long b)
     {
-        while(arr.size()!=0)
+
+        if(a==0||b==0)
+        return;
+
+        if(a%b==0)
         {
-            System.out.print(arr.remove(0)+" ");
+            System.out.print("1/"+a/b);
+            return;
         }
+
+        if(b%a==0)
+        {
+            System.out.print(b/a);
+            return;
+        }
+
+        if(a>b)
+        {
+            System.out.print("1/"+a/b+" ");
+            ans(a%b, b);
+            return;
+        }
+
+        long n=b/a+1;
+        System.out.print(n+" ");
+        ans((a*n-b), b*n);
+    }
+    static void print_ans()
+    {
+        for(int i=0; i<answer.size(); i++)
+        System.out.print(answer.get(i)+" ");
+
         System.out.println();
+    }
+    public static long gcd(Long a, Long b)
+    {
+        if(a==0)
+        return b;
+        return gcd(b%a, a);
     }
 }
