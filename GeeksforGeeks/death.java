@@ -13,7 +13,38 @@ public class death {
             int k=Integer.parseInt(input[1]);
             ArrayList<Integer> arr=new ArrayList<Integer>();
             for(int i=0; i<n; i++)
-            arr.add(i+1);   
+            arr.add(i+1);
+
+            //if(k==1)
+            //System.out.println(n);
+            //else
+            function(arr, k, k, 0);
         }
     } 
+    static void function(ArrayList<Integer> arr, int k, int k1, int index)
+    {
+        //System.out.println(arr);
+        if(arr.size()==1)
+        {
+            System.out.println(arr.remove(0));
+            return;
+        }
+
+        if(index>=arr.size())
+        index=0;
+
+        if(k1<=1)
+        {
+            k1=k;
+            arr.remove(index);
+            function(arr, k, k1, index);
+            return;
+            //--index;
+        }
+
+        if(index>=arr.size())
+        index=0;
+
+        function(arr, k, k1-1, index+1);
+    }
 }
