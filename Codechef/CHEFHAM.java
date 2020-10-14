@@ -46,9 +46,19 @@ public class CHEFHAM {
             1.) duplicates arraylist size == 0
             2.) duplicates arraylist size == 1
             3.) duplicates arraylist size > 1
+            4.) 1 unique
             */
 
-            
+            int ans_hamming=0;
+            if((unique.size()==0)&&(duplicates.size()<=1))
+            ans_hamming=0;
+            else if((size==3)&&(duplicates.size()==1))
+            ans_hamming=2;
+            else
+            ans_hamming=duplicates.size()*2+unique.size();
+
+           // if(unique.size())
+
         }
     }
 }
