@@ -6,11 +6,11 @@ public class bracket_no {
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
         String input=x.readLine();
-        Solution obj=new Solution();
+        Solutioaaaan obj=new Solutioaaaan();
         System.out.println(obj.barcketNumbers(input));
     }
 }
-class Solution {
+class Solutioaaaan {
     ArrayList<Integer> barcketNumbers(String S) {
         // code here
         int k=0;
