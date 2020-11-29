@@ -6,14 +6,16 @@ class GFG
 {
 	public static void main(String args[]) 
 	{ 
-		int max=0;
-		GFG x=new GFG();
-		x.xyz(max, x);
-		System.out.println(max);
-	}
-	void xyz(int aa, GFG x)
-	{
-		aa=10;
-		//x.aa=10;
+		long a[]={2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 51, 53};
+		long ans=1;
+		//long n=614889782588491409L;
+		//long n=614889782588491411L;
+		//long n=614889782588491412L;
+		long n=614889782588491413L;
+		//long n=614889782588491415L;
+		int k=0;
+		//while
+
+		System.out.println(k);
 	}
 } 

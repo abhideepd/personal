@@ -1,40 +1,56 @@
 package Codeforces;
 import java.io.*;
 public class prob13 {
-    static char arr[];
+    static String t;
     static String p;
+    static String order[];  //  --permutation
     public static void main(String []args)throws IOException
     {
         BufferedReader x=new BufferedReader(new InputStreamReader(System.in));
 
-        String t=x.readLine();
+        t=x.readLine();
         p=x.readLine();
-        String order[]=(x.readLine()).split(" ");
+        order=(x.readLine()).split(" ");        
 
-        for(int i=0; i<t.length(); i++)
+        int l=0, r=order.length-1;
+
+        while(l<r)
         {
-            arr[i]=t.charAt(i);
-        }
+            int mid=(l+r)/2;
 
-        int ans=0;
+            //System.out.println(l+" "+r+" "+mid);
 
-        for(int i=0; i<order.length; i++)
-        {
-            int temp=Integer.parseInt(order[i]);
-            
-            if(func(temp)==1)
-            ++ans;
+            if(func(mid)==1)
+            l=mid+1;
             else
-            break;
+            r=mid;
         }
 
-        System.out.println(ans);
+        System.out.println(l);
     }
     static int func(int x)
     {
-        for(int i=0; i<p.length(); i++)
+        char t_arr[]=t.toCharArray();
+        
+        for(int i=0; i<=x; i++)
         {
-            char temp=p.charAt(i);
+            int temp=Integer.parseInt(order[i]);
+            t_arr[temp-1]='-';
         }
+
+        int k=0;
+
+        for(int i=0; i<t_arr.length; i++)
+        {
+            if(t_arr[i]==p.charAt(k))
+            ++k;
+
+            if(k==p.length())
+            break;
+        }
+
+        if(k==p.length())
+        return 1;
+        return 0;
     }
 }
