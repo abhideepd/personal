@@ -24,32 +24,57 @@ public class gaya
         }
         
         //--    Stores difference
+        int min_diff=Integer.MAX_VALUE;
         for(int i=1; i<n; i++)
         {
-            diff_arr[i]=diff_arr[i]-diff_arr[i-1];
+            diff_arr[i] = arr[i] - arr[i-1];
+            min_diff=Math.min(min_diff, diff_arr[i]);
         }
 
-        int l=0, r=2000000000;
+        long l=min_diff, r=2000000000;
 
         while(l<=r)
         {
-            int m=(l+r)/2;
+            long m=(l+r)/2;
             if(f(m)==1)
-            r=m-1;
-            else
             l=m+1;
+            else
+            r=m-1;
         }
 
-        System.out.println(l);
+        System.out.println(l-1);
     }    
-    static int f(int min_diff)
+    static int f(long min_diff)
     {
-        long diff=0L;
+        int prev=arr[0];
+        int cows=1;
+        int flag=0;
         for(int i=1; i<n; i++)
         {
-
+            /*if(arr[i]<min_diff)
+            {
+                break;
+            }*/
+            if((prev+min_diff)<=arr[i])
+            {
+                ++cows;
+                if((prev+min_diff)==arr[i])
+                {prev=arr[i];flag=1;}
+                else
+                prev=arr[i-1];
+            }
         }
 
-        /*testing*/ return 1;
+        ///*testing*/System.out.println(cows+" "+min_diff+" "+prev);
+
+        if(flag!=1)
+        cows=-1;
+
+        if(cows>=k)
+        return 1;
+        else
+        return 0;
+
+        ///*testing*/return 1;
     }
 }
