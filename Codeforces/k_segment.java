@@ -31,7 +31,7 @@
                 else
                 r=m-1;
             }
-            System.out.println(l-1);
+            System.out.println(l);
         }
         public static int f(long x)
         {
@@ -41,12 +41,12 @@
                 int l=l_arr[i];
                 int r=r_arr[i];
 
-                if(l>=x)
+                if(l>x)
                 {}
                 else if(x>=r)
                 ans=ans+(r-l)+1;
                 else
-                ans=ans+(x-l)   ;
+                ans=ans+(x-l)+1;
                 //ans=ans+Math.min(x-l, r-l+1);
             }
             if(ans<=k)
