@@ -2,12 +2,12 @@ package Project_Euler;
 import java.io.*;
 public class Problem15 
 {
-    static int ans=0;
+    static long ans=0;
     static int matrix[][];
     public static void main(String []args)
     {
-        int a=20;
-        matrix=new int[a][a]; 
+        int a=4;
+        matrix=new int[a+1][a+1]; 
         find_paths(0, 0, a+1);
         System.out.println(ans);
     }    

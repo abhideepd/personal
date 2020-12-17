@@ -17,16 +17,19 @@ public class Problem19
             6   --> Saturday
             */
         int ans=0;
-        int prev=0;
-        for(int i=1900; i<=2000; i++)
+        int prev=1;
+        for(int i=1900; i<=1901; i++)
         {
             int temp=0;
             for(int j=1; j<=12; j++)
             {
                 temp=no_of_days(j, i)+prev;
+                prev=temp%7;
+                if(prev==6)
+                ++ans;
             }
         }
-
+        System.out.println(ans);
     }
     static int no_of_days(int month, int year)
     {
