@@ -3,45 +3,76 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Problem23 {
-    static HashMap<Integer, Integer> arr = new HashMap<Integer, Integer>();
-    static int limit=100;    //28123
+public class Problem23 
+{
+    static ArrayList<Integer> abundant_nos=new ArrayList<Integer>(); 
+    static int limit=28123;    //28123
+    static boolean abundant_sum[];
 
-    public static void main(String[] args) throws IOException {
-        //input();
-        fact();
-        long sum=0; 
-        System.out.println(arr);
-        for(Entry<Integer, Integer> m:arr.entrySet())
+    public static void main(String[] args) throws IOException 
+    {
+        abundant_sum=new boolean[limit+1];
+        find_abundant_nos();
+        find_all_abundant_sum();
+        //testing1();
+        //testing2();
+        find_sum_all_non_abundant_nos();
+    }
+    static void find_sum_all_non_abundant_nos()
+    {
+        long sum=0;
+        for(int i=0; i<limit+1; i++)
         {
-            sum=sum+(int)m.getKey();
+            if(abundant_sum[i]==false)
+            sum=sum+i;;
         }
         System.out.println(sum);
     }
-
-    static void fact() {
-        //for (Entry<Integer, Integer> m : arr.entrySet())
-        for(int ii=1; ii<=limit; ii++)
+    static void testing2()
+    {
+        for(int i=0; i<50; i++)
         {
-            //int temp=(int)m.getKey();
-            int temp=ii;
-            int fact_sum=0;
-            for(int i=1; i<=(temp/2)+1; i++)
-            {
-                if(temp%i==0)
-                fact_sum=fact_sum+i;
-            }
-            //System.out.println(temp+" "+fact_sum);
-            if(fact_sum<=temp)
-            arr.put(temp, 0);
+            if(abundant_sum[i]==true)
+            System.out.println(i);
         }
     }
-    static void input()
+    static void find_all_abundant_sum()
     {
-        for(int i=1; i<=28123; i++)
+        for(int i=0; i<abundant_nos.size(); i++)
         {
-            arr.put(i, 0);
+            for(int j=i; j<abundant_nos.size(); j++)
+            {
+                int sum=abundant_nos.get(i)+abundant_nos.get(j);
+                if(sum>limit)
+                break;
+                abundant_sum[sum]=true;
+            }
         }
-        fact();
+    }
+    static void testing1()
+    {
+        int a=0;
+        while(a!=abundant_nos.size())
+        System.out.println(abundant_nos.get(a++));
+    }
+    static void find_abundant_nos()
+    {
+        for(int i=1; i<=limit; i++)
+        {
+            if(abundant(i))
+            abundant_nos.add(i);
+        }
+    }
+    static boolean abundant(int x)
+    {
+        int sum=0;
+        for(int i=1; i<((x/2)+1); i++)
+        {
+            if(x%i==0)
+            sum=sum+i;
+        }
+        if(sum>x)
+        return true;
+        return false;
     }
 }

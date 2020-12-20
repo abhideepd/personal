@@ -3,48 +3,53 @@ import java.io.*;
 import java.util.*;
 public class Problem19 
 {
+    static int limit=2000;
+    static String days[]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    static String month[]={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     public static void main(String []args)throws IOException
     {
-        BufferedReader inp=new BufferedReader(new InputStreamReader(System.in));
-            /*
-            Position of First Day of the month
-            0   --> Sunday
-            1   --> Monday
-            2   --> Tuesday
-            3   --> Wednesday
-            4   --> Thursday
-            5   --> Friday
-            6   --> Saturday
-            */
+        //limit=1900;
+        count_days();
+    }
+    static void count_days()
+    {
+        //  find how many sundays fell on the 1st of the month
         int ans=0;
-        int prev=1;
-        for(int i=1900; i<=1901; i++)
+        int month_end=0;
+        for(int i=1900; i<=limit; i++)
         {
-            int temp=0;
             for(int j=1; j<=12; j++)
             {
-                temp=no_of_days(j, i)+prev;
-                prev=temp%7;
-                if(prev==6)
+                int temp=no_of_days(j, i);
+                month_end=(month_end+temp)%7;
+                //System.out.println(month[j-1]+" "+days[month_end]+" "+month_end+" "+(temp));
+                if(month_end==6)
                 ++ans;
             }
+            if(i==1900)ans=0;
         }
-        System.out.println(ans);
+        System.out.println("Answer: "+ans);
     }
     static int no_of_days(int month, int year)
     {
         if(month==2)
         {
-            if(year%100==0)     //--    Century
+            if(year%4==0)   //--    if its a leap year
             {
-                if(year%400==0)
-                return 29;
-            }
-            else        //--    Not a Century
-            {
-                if(year%4==0)
-                return 29;
+                if(year%100==0) //-- if its a century
+                {
+                    if(year%400==0)
+                    return 29;
+                    else
+                    return 28;
+                }
                 else
+                {
+                    return 29;
+                }
+            }
+            else
+            {
                 return 28;
             }
         }
