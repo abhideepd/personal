@@ -20,15 +20,15 @@ public class Problem35
         for(Entry<Integer, Integer> m:hm.entrySet())
         {
             int temp=m.getKey();
-            System.out.print("k:"+k+" ");
+            //System.out.print("k:"+k+" ");
             if(temp>l)break;
             if(circular_prime(temp))
             {
                 ++ans;
-                System.out.print(" "+temp+" val:"+ans);
+                //System.out.print(" "+temp+" val:"+ans);
             }
             
-            System.out.println();
+            //System.out.println();
         }
 
         System.out.println("\nAnswer: "+ans);
@@ -43,7 +43,9 @@ public class Problem35
         }
         if(hm.containsKey(n))
         {
-            System.out.print(n+" ");
+            System.out.println(n+" ");
+            //hm.remove(n);
+            //hm.remove
             return true;
         }
         return false;

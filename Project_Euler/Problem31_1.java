@@ -6,7 +6,7 @@ public class Problem31_1
     public static void main(String []args)throws IOException
     {
         int n=200;
-        int count[]=new int[n+1];
+        long count[]=new long[n+1];
         int coins[]={1, 2, 5, 10, 20, 50, 100, 200};
         count[0] = 1;
         for (int x = 1; x <= n; x++) 
@@ -22,7 +22,7 @@ public class Problem31_1
         print(count);
         //System.out.println(count[n-1]+" ");
     }
-    static void print(int x[])
+    static void print(long x[])
     {
         System.out.println();
         for(int i=0; i<x.length; i++)
