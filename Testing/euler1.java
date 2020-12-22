@@ -4,10 +4,7 @@ import java.io.*;
 public class euler1 {
     public static void main(String []args)throws IOException
     {
-        for(long i=0; i<100000000000L; i++)
-        {
-
-        }
-        System.out.print("s");
+        int t=(int)(Math.log(999)/Math.log(10));
+        System.out.println(t);
     }
 }
