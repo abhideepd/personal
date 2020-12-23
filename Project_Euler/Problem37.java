@@ -77,6 +77,7 @@ public class Problem37
                 arr.add(k);
             }
             ++k;
+            //System.out.println(k);
         }
         System.out.println(arr+" k:"+k);
         sum(arr);
@@ -94,7 +95,6 @@ public class Problem37
                 ++j;
             }
         }
-
         //print_sieve();
     }
 

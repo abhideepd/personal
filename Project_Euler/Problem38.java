@@ -4,70 +4,70 @@ import java.util.*;
 public class Problem38 
 {
     static ArrayList<Integer> arr=new ArrayList<Integer>();
+    static int limit=987654321;
     public static void main(String []args)throws IOException
     {
         //testing1();
-        testing2();
-    }
-    static void testing2()
-    {
-        generate_nos();
-        System.out.println(arr);
+        largest_pan_digital_no();
     }
     static void testing1()
     {
-        int n=join(111, 2);
-        System.out.println(n);
+        //System.out.println(join(200, 300));
     }
-    static void generate_nos()
+    static void largest_pan_digital_no()
     {
-        int i=1;
-        while(length(i*2)<10)
+        long max=0;
+        for(int i=1; i<=10000; i++)
         {
-            int temp=i;
-            int k=2;
-            while(length(temp)<5)
+            long no=i;
+            int j=2;
+            while(length(no)<9)
             {
-                temp=join(temp, temp*k);
-                ++k;
+                no=join(no, i*j);
+                ++j;
             }
-            //if(check(temp))
-            arr.add(temp);
-            ++i;
+            if(check(no))
+            {
+                if(max<no)
+                max=no;
+            }
         }
+        System.out.println("Answer: "+max);
     }
-    static boolean check(int z)
+    static long join(long no, long x)
     {
-        boolean no[]=new boolean[9];
-        while(z!=0)
-        {            
-            int temp=z%10;
+        int n=length(x);
+        no = no * (int)Math.pow(10, n) + x ;
+        return no;
+    }
+    static boolean check(long x)
+    {
+        if(x>limit)
+        return false;
 
-            //System.out.println(temp+" "+z);
+        boolean choice[]=new boolean[9];
+        while(x!=0)
+        {
+            int temp=(int)x%10;
 
             if(temp==0)
             return false;
 
-            if(no[temp-1]==true)
+            if(choice[temp-1]==true)
             return false;
 
-            z=z/10;
+            x=x/10;
+
+            choice[temp-1]=true;
         }
-        for(boolean i:no)
+        for(boolean i:choice)
         {
             if(i==false)
             return false;
         }
         return true;
     }
-    static int join(int no, int join)
-    {
-        int t=(int)(Math.log(join)/Math.log(10))+1;
-        int prod=(int)Math.pow(10, t);
-        int n=no*prod+join;
-        return n;
-    }
-    static int length(int x)
+    static int length(long x)
     {
         int ans=0;
         while(x!=0)
