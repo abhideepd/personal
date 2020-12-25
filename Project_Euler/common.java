@@ -1,73 +1,66 @@
 package Project_Euler;
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 
-public class common {
-    common()
-    {
-        sieve();
-    }
-        static HashMap<Integer, Integer> arr = new HashMap<Integer, Integer>();
-        static int limit = 50000;
+
+public class common 
+{
+    static HashMap<Integer, Integer> arr=new HashMap<Integer, Integer>();
+    static int prime_sieve[];
+    static int limit=1000;
+    static int sum_limit=21;
     public static void main(String []args)throws IOException
     {
-        /*testing*/
-        common obj=new common();
-        System.out.println(prime_fact(180200));
-        /*testing*/
+        generate_prime();
+        //System.out.println(arr);
+        prime_sieve=new int[arr.size()];
+        store_in_array();
+        find_sum();
     }
-
-    static int prime_fact(long n)
+    static void find_sum()
     {
-        int ans=1;
-        for(Entry<Integer, Integer> m: arr.entrySet())
+        int prev=0;
+        int i=0;
+        ArrayList<Integer> xx=new ArrayList<Integer>();
+        int sum=0;
+        for(; i<sum_limit; i++)
         {
-            int divisor=m.getKey();
-            int temp_ans=0;
-            while(n%divisor==0)
-            {
-                ++temp_ans;
-                n=n/divisor;
-            }
-            ans=ans*(temp_ans+1);
-            if(n==1)
-            break;
+            sum=sum+prime_sieve[i];
+            xx.add(prime_sieve[i]);
         }
-        return ans;
+        System.out.println(sum+" "+xx);
+        for(; i<500; i++)
+        {
+            xx.remove(0);
+            xx.add(prime_sieve[i]);
+            sum=sum+prime_sieve[i]-prime_sieve[prev++];
+            System.out.println(sum+" "+xx);
+        }
     }
-    static void sieve()
+    static void store_in_array()
     {
-        prime();
+        int k=0;
+        for(Map.Entry<Integer, Integer> m:arr.entrySet())
+        {
+            prime_sieve[k++]=(int)m.getKey();
+        }
     }
-    static void prime()
+    static void generate_prime()
     {
-        for(int i=2; i<=limit; i++)
-        arr.put(i, 0);
-
+        input();
         for(int i=2; i<=limit; i++)
         {
             int j=2;
             while(j*i<=limit)
             {
-                if(arr.containsKey(j*i))
                 arr.remove(j*i);
                 ++j;
             }
         }
     }
-    static void time()
+    static void input()
     {
-        
-        for(long i=0; i<Long.MAX_VALUE/10000000000L; i++)
-        {
-            /*for(long j=0; j<Long.MAX_VALUE; j++)
-            {
-               /* for(int k=0; k<0; k++)
-                {
-                    
-                }
-            }*/
-        }
+        for(int i=2; i<limit; i++)
+        arr.put(i, 0);
     }
 }

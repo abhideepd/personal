@@ -4,65 +4,90 @@ import java.io.*;
 public class Problem50 
 {
     static HashMap<Integer, Integer> prime_sieve=new HashMap<Integer, Integer>();
-    static int limit=2000;
-    static int sieve_limit=10000;
-    //static int ans_limit=1000000;
+    static int limit=10000;
+    static int sum_limit=10000;
+    static int ans_limit=2000000;
     public static void main(String []args)throws IOException
     {
-        //limit=1000;
-        generate_sieve();
-        //print_sieve();
-        main_function();
+        generate_prime();
+        generate_sum();
     }
-    static void main_function()
+    static void generate_sum()
     {
         int sum=0;
+        int k=0;
         int ans=0;
-        ArrayList<Integer> arr=new ArrayList<Integer>();
+        ArrayList<Integer> previous_primes=new ArrayList<Integer>();
         for(Map.Entry<Integer, Integer> m:prime_sieve.entrySet())
         {
             int temp=(int)m.getKey();
-
-            if(sum+temp<=limit)
+            sum=sum+temp;
+            if(sum<=ans_limit)
             {
-                sum=sum+temp;
-                arr.add(temp);
-            }
-            else
-            break;
-
-            if(prime_sieve.containsKey(sum))
-            {
-                //System.out.println(sum+" "+arr);
+                previous_primes.add(temp);
                 ans=sum;
             }
+            //System.out.println(++k+" "+sum);
         }
-        System.out.println("Answer: "+ans);
-        System.out.println(arr);
+        System.out.print(ans+" "+previous_primes.size());
+        System.out.print(" "+previous_primes);
+        find_longest_chain_1(previous_primes, ans);
+        find_longest_chain_2(previous_primes, ans);
     }
-    static void generate_sieve()
+    static void find_longest_chain_1(ArrayList<Integer> a, int s)
+    {
+        /*while(!prime_sieve.containsKey(s))
+        {
+            s=s-a.remove(0);
+        }*/
+        while(!check(s))
+        {
+            s=s-a.remove(0);
+        }
+        System.out.println("\nAnswer: "+s+" "+a.size());
+    }
+    static void find_longest_chain_2(ArrayList<Integer> a, int s)
+    {
+        /*while(!prime_sieve.containsKey(s))
+        {
+            s=s-a.remove(0);
+        }*/
+        while(!check(s))
+        {
+            s=s-a.remove(a.size()-1);
+        }
+        System.out.println("\nAnswer: "+s+" "+a.size());
+    }
+    static boolean check(int x)
+    {
+        for(int i=(int)Math.sqrt(x)+1; i>=2; i--)
+        {
+            if(x%i==0)
+            return false;
+        }
+        return true;
+    }
+    static void generate_prime()
     {
         input();
-
-        for(int i=2; i<=sieve_limit; i++)
+        for(int i=2; i<=limit; i++)
         {
-            int j=2;
-            while(i*j<=sieve_limit)
+            if(prime_sieve.containsKey(i))
             {
-                prime_sieve.remove(i*j);
-                ++j;
+                int j=2;
+                while(i*j<=limit)
+                {
+                    prime_sieve.remove(i*j);
+                    ++j;
+                }
             }
         }
-
-        //
-    }
-    static void print_sieve()
-    {
-        System.out.println(prime_sieve);
     }
     static void input()
     {
-        for(int i=2; i<=sieve_limit; i++)
-        prime_sieve.put(i, 0);
+        for(int i=2; i<=limit; i++)
+        {
+            prime_sieve.put(i, 0);
+        }
     }
 }

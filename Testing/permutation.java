@@ -3,39 +3,49 @@ import java.io.*;
 import java.util.*;
 public class permutation 
 {
-    static Stack<Integer> permutation=new Stack<Integer>();
-    static int n=0;
-    static int counter=725760;
+    static ArrayList<Integer> arr=new ArrayList<Integer>();
+    static int no_arr[]={1, 2, 3, 4, 5, 6, 7, 8 ,9};
+    //static int no_arr[]={1, 2, 3};
     static boolean choice[];
-    static int limit=1000000;
+    static int s=0;
+    static int n;
     public static void main(String []args)
     {
-        n=10;
-        int arr[]={2,0,1,3,4,5,6,7,8,9};
-
-        choice=new boolean[n];
-        permutation(arr);
+        n=no_arr.length;
+        choice=new boolean[no_arr.length];
+        func();
+        System.out.println(arr);
     }    
-    static void permutation(int[] arr)
+    static void func()
     {
-        if(arr.length==permutation.size())
+        if(length(s)==n)
         {
-            ++counter;
-            if(counter==limit)
-            System.out.println(counter+" "+permutation);
+            arr.add(s);
         }
         else
         {
             for(int i=0; i<n; i++)
             {
-                if(choice[i])
+                if(choice[i]==true)
                 continue;
                 choice[i]=true;
-                permutation.push(arr[i]);
-                permutation(arr);
+                int temp=s;
+                s=s*10+no_arr[i];
+                func();
+                s=temp;
                 choice[i]=false;
-                permutation.pop();
+                //func(i+1);
             }
         }
+    }
+    static int length(int x)
+    {
+        int ans=0;
+        while(x!=0)
+        {
+            ++ans;
+            x=x/10;
+        }
+        return ans;
     }
 }
