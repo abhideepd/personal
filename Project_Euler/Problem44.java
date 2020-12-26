@@ -12,21 +12,27 @@ public class Problem44
     }    
     static void main_function()
     {
-        long D=Integer.MAX_VALUE;
+        long ans=Long.MAX_VALUE;
         for(int i=0; i<limit; i++)
         {
             for(int j=i+1; j<limit; j++)
             {
-                long temp_sum=sieve.get(i)+sieve.get(j);
-                long temp_diff=sieve.get(j)-sieve.get(i);
-                //System.out.println(temp_diff);
-                if((sieve.indexOf(temp_sum)!=-1)&&(sieve.indexOf(temp_diff)!=-1))
+                long temp_l=sieve.get(i);
+                long temp_r=sieve.get(j);
+                long temp_sum=temp_l+temp_r;
+                long temp_D=temp_r-temp_l;
+
+                if(temp_D>ans)
+                break;
+
+                if((sieve.indexOf(temp_sum)!=-1)&&(sieve.indexOf(temp_D)!=-1))
                 {
-                    D=Math.min(D, temp_diff);
+                    ans=Math.min(ans, temp_D);
+                    break;
                 }
             }
         }
-        System.out.println("Answer: "+D);
+        System.out.println(ans);
     }
     static void generate_pythogonal_nos()
     {
@@ -35,7 +41,7 @@ public class Problem44
     }
     static long Pn(int n)
     {
-        long ans = n * (3 * n - 1) / 2;
+        long ans = n * ( 3 * n - 1 ) / 2;
         return ans;
     }
 }

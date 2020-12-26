@@ -3,78 +3,88 @@ import java.io.*;
 import java.util.*;
 public class Problem41 
 {
-    static ArrayList<Integer> arr=new ArrayList<Integer>();
-    static int no_arr[]={1, 2, 3, 4, 5, 6, 7};
-    static boolean choice[];
-    static int s=0;
-    static int n;
+    static ArrayList<Long> prime=new ArrayList<Long>();
+    static ArrayList<Long> prime_sum=new ArrayList<Long>();
+    static int prime_limit=1000000;
     public static void main(String []args)throws IOException
     {
-        //testing1();
-        n=no_arr.length;
-        choice=new boolean[n];
-        generate_permutation();
-        Collections.sort(arr, Collections.reverseOrder());
-        //System.out.println(arr);
+        generate();
+    }
+    static void generate()
+    {
         generate_prime();
+        //System.out.println(prime+" "+prime.size());
+        generate_prime_sum();
+        //System.out.println(prime_sum+" "+prime_sum.size());
+        main_function();
     }
-    static void testing1()
+    static void main_function()
     {
-        System.out.println(prime(23));
-        System.out.println(prime(3797));
-        System.exit(0);
-    }
-    static void generate_prime()
-    {
-        for(int i:arr)
+        long max=prime_sum.get(prime_sum.size()-1);
+        int size1=0;
+        long ans1=0;
+        int size2=0;
+        long ans2=0;
+        //System.out.println(max);
+        for(int i=0; i<prime_sum.size(); i++)
         {
-            if(prime(i))
+            long temp=max-prime_sum.get(i);
+            if(check_prime(temp))
             {
-                //System.out.print("dd");
-                System.out.println(i);
+                size1=prime_sum.size()-i-1;
+                ans1=temp;
                 break;
             }
         }
-    }
-    static boolean prime(int x)
-    {
-        for(int i=2; i<=(int)Math.sqrt(x)+1; i++)
+        for(int i=prime_sum.size()-1; i>=0; i--)
         {
-            if(x%i==0)
+            if(check_prime(prime_sum.get(i)))
+            {
+                size2=i+1;
+                ans2=prime_sum.get(i);
+                break;
+            }
+        }
+        System.out.println(size1+" "+ans1+"\n"+ans2+" "+size2);
+    }
+    static boolean check_prime(long z)
+    {
+        for(long i=2; i<=(long)Math.sqrt(z)+1; i++)
+        {
+            if(z%i==0)
             return false;
         }
         return true;
     }
-    static void generate_permutation()
+    static void generate_prime()
     {
-        if(length(s)==n)
+        int limit_prime=prime_limit/10;
+        for(long i=2; i<=limit_prime; i++)
+        prime.add(i);
+
+        for(long i=2; i<=limit_prime; i++)
         {
-            arr.add(s);
-        }
-        else
-        {
-            for(int i=0; i<n; i++)
+            long j=2;
+            if(prime.indexOf(i)!=-1)
             {
-                if(choice[i]==true)
-                continue;
-                choice[i]=true;
-                int temp=s;
-                s=s*10+no_arr[i];
-                generate_permutation();
-                s=temp;
-                choice[i]=false;
-                //func(i+1);
+                while(i*j<=limit_prime)
+                {
+                    if(prime.indexOf(i*j)!=-1)
+                    prime.remove(prime.indexOf(i*j));
+                    ++j;
+                }
             }
         }
     }
-    static int length(int x)
+    static void generate_prime_sum()
     {
-        int ans=0;
-        while(x!=0)
+        long sum=2;
+        int k=1;
+        while(sum<=prime_limit)
         {
-            ++ans;
-            x=x/10;
+            prime_sum.add(sum);
+            sum=sum+prime.get(k);
+            ++k;
         }
-        return ans;
     }
 }

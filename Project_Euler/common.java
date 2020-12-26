@@ -9,6 +9,7 @@ public class common
     static int prime_sieve[];
     static int limit=1000;
     static int sum_limit=21;
+    int x=Integer.MAX_VALUE;
     public static void main(String []args)throws IOException
     {
         generate_prime();
