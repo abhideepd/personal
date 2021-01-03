@@ -110,7 +110,7 @@ public class Problem18
                 ans=Math.max(ans, sum[i][j]);
             }
         }
-        //print_matrix(sum);
+        print_matrix(sum);
         System.out.println("Answer: "+ans);
     }
 }
