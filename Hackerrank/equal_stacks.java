@@ -42,32 +42,30 @@ public class equal_stacks
         //System.out.println(H2);
         //System.out.println(H3);
 
-        while((H1.size()!=0)&&(H2.size()!=0)&&(H3.size()!=0))
+        if((H1.size()==H2.size())&&(H1.size()==H3.size()))
+        return answer(H1, H2, H3);
+        else if((H1.size()<=H2.size())&&(H1.size()<=H3.size()))
+        return answer(H1, H2, H3);
+        else if((H2.size()<=H1.size())&&(H2.size()<=H3.size()))
+        return answer(H2, H1, H3);
+        else
+        return answer(H3, H1, H2);
+        
+    }
+    static int answer(Stack<Integer> H1, Stack<Integer> H2, Stack<Integer> H3)
+    {
+        while(H1.size()!=0)
         {
-            if((H1.peek()==H2.peek())&&(H1.peek()==H3.peek()))
-            return H1.peek();
-            
-            else if((H1.peek()>=H2.peek())&&(H1.peek()>=H3.peek()))
-            {
-                H1.pop();
-                H1.pop();
-            }
-            else if((H2.peek()>=H1.peek())&&(H2.peek()>=H3.peek()))
-            {
-                H2.pop();
-                H2.pop();
-            }
-            else
-            {
-                H3.pop();
-                H3.pop();
-            }
+            int temp=H1.pop();
+            if((H2.indexOf(temp)!=-1)&&(H3.indexOf(temp)!=-1))
+            return temp;
         }
         return 0;
     }
     static void fill_stack(Stack<Integer> H, List<Integer> h)
     {
         int sum=0;
+        
         for(int i=h.size()-1; i>=0; i--)
         {
             int temp=h.get(i);
@@ -76,7 +74,7 @@ public class equal_stacks
                 System.out.println("XX");
             }
             sum=sum+temp;
-            H.push(temp);
+            //H.push(temp);
             H.push(sum);
         }
     }
