@@ -1,0 +1,177 @@
+Curr_Paradigm = Context.This.GetValue("ParadigmID")
+
+UserToDefineTreeMapList = App.Query("UserToDefineTreeMap").Where("AppUserDefineMap.Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(UserToDefineTreeMapList)
+
+DefineCompetencyAreaListList = App.Query("DefineCompetencyAreaList").Where("Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(DefineCompetencyAreaListList)
+
+DefineCompetencyListList = App.Query("DefineCompetencyList").Where("Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(DefineCompetencyListList)
+
+DefineObjectiveListList = App.Query("DefineObjectiveList").Where("Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(DefineObjectiveListList)
+
+DefineObjectiveList = App.Query("DefineObjective").Where("UserToDefineMap.Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(DefineObjectiveList)
+
+DummyDefineObjectiveList = App.Query("DummyDefineObjective").Where("UserToDefineMap.Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(DummyDefineObjectiveList)
+
+ParadigmRatingDropDownList = App.Query("ParadigmRatingDropDown").Where("DefineParadigm.Id",Curr_Paradigm).List()
+App.BulkDelete(ParadigmRatingDropDownList)
+
+SystemDriverList = App.Query("SystemDriver").Where("ParadigmID",Curr_Paradigm).List()
+App.BulkDelete(SystemDriverList)
+
+DefineParadigmLevelMapList = App.Query("DefineParadigmLevelMap").Where("ParadigmRef.Id",Curr_Paradigm).List()
+App.BulkDelete(DefineParadigmLevelMapList)
+
+ExampleMBOList = App.Query("ExampleMBO").Where("Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(ExampleMBOList)
+
+
+ParadigmPresent = App.Query("DefineParadigm").Where("ParadigmID",Curr_Paradigm,"NotEquals").List()
+CountOfParadigmPresent =len(ParadigmPresent)
+if(CountOfParadigmPresent==0):
+    DefineCommentsList = App.Query("DefineComments").List()
+    App.BulkDelete(DefineCommentsList)
+    CustomizeMBOList = App.Query("CustomizeMBO").List()
+    App.BulkDelete(CustomizeMBOList)
+    SummaryTabDataList = App.Query("SummaryTabData").List()
+    App.BulkDelete(SummaryTabDataList)
+    ScenariosDatamonthMapList = App.Query("ScenariosDatamonthMap").List()
+    App.BulkDelete(ScenariosDatamonthMapList)
+    JIMImportDataBOList = App.Query("JIMImportDataBO").List()
+    App.BulkDelete(JIMImportDataBOList)
+
+
+TerritoriesPresentFromCurrentParadigm = App.Query("UserToDefineMap").Fields("Territory").Where("Paradigm.Id",Curr_Paradigm).Distinct().List()
+
+TerritoriesNotPresentFromCurrentParadigm = App.Query("UserToDefineMap").Fields("Territory").Where("Paradigm.Id",Curr_Paradigm,"NotEquals").Distinct().List()
+
+UncommonTerritories=[]
+
+for x in TerritoriesPresentFromCurrentParadigm:
+    c=0
+    for y in TerritoriesNotPresentFromCurrentParadigm:
+        if x==y:
+            c=1
+    if(c==0):
+        UncommonTerritories.append(x)
+
+DefineTerritoryList = App.Query("DefineTerritory").List()
+for x in DefineTerritoryList:
+    for y in UncommonTerritories:
+        if x.GetValue("TerritoryID")==y:
+            x.Delete()
+
+
+
+HierarchiesPresentFromCurrentParadigm = App.Query("UserToDefineMap").Fields("Level").Where("Paradigm.Id",Curr_Paradigm).Distinct().List()
+
+HierarchiesNotPresentFromCurrentParadigm = App.Query("UserToDefineMap").Fields("Level").Where("Paradigm.Id",Curr_Paradigm,"NotEquals").Distinct().List()
+
+UncommonHierarchies=[]
+
+for x in HierarchiesPresentFromCurrentParadigm:
+    c=0
+    for y in HierarchiesNotPresentFromCurrentParadigm:
+        if x==y:
+            c=1
+    if(c==0):
+        UncommonHierarchies.append(x)
+
+DefineHierarchyList = App.Query("DefineHierarchy").List()
+for x in DefineHierarchyList:
+    for y in UncommonHierarchies:
+        if x.GetValue("Level")==y:
+            x.Delete()
+
+
+AppUserPresentFromCurrentParadigm = App.Query("AppUserDefineParadigmMap").Fields("AppUser").Where("DefineParadigm.Id",Curr_Paradigm).Distinct().List()
+
+AppUserNotPresentFromCurrentParadigm = App.Query("AppUserDefineParadigmMap").Fields("AppUser").Where("DefineParadigm.Id",Curr_Paradigm,"NotEquals").Distinct().List()
+
+UncommonAppUser=[]
+
+for x in AppUserPresentFromCurrentParadigm:
+    c=0
+    for y in AppUserNotPresentFromCurrentParadigm:
+        if x==y:
+            c=1
+    if(c==0):
+        UncommonAppUser.append(x)
+
+DefineAppUserList = App.Query("AppUser").List()
+for x in DefineAppUserList:
+    for y in UncommonAppUser:
+        if x.GetValue("UserID")==y:
+            x.Delete()
+
+
+AppUserRemainingList = App.Query("AppUser").List()
+for x in AppUserRemainingList:
+    if ((x.GetValue("DefineParadigmRef")!=None) and (x.GetValue("DefineParadigmRef").Id()==Curr_Paradigm)):
+        P1 = App.Query("AppUserDefineParadigmMap").Fields("DefineParadigm").Where("AppUser.Id",x.Id()).And("DefineParadigm.Id",Curr_Paradigm,"NotEquals").And("IsUserFlag","1").List()
+        if(len(P1) != 0):
+            x.SetValue("DefineParadigmRef",P1[0])
+            UDM1 = App.Query("UserToDefineMap").Where("AppUser.Id",x.Id()).And("Paradigm.Id",P1[0].Id()).List()[0]
+            x.SetValue("UserToDefineMap",UDM1)
+        else:
+            x.SetValue("DefineParadigmRef",None)
+            x.SetValue("UserToDefineMap",None)
+
+    if ((x.GetValue("FLMDefineParadigmRef")!=None) and (x.GetValue("FLMDefineParadigmRef").Id()==Curr_Paradigm)):
+        P2 = App.Query("AppUserDefineParadigmMap").Fields("DefineParadigm").Where("AppUser.Id",x.Id()).And("DefineParadigm.Id",Curr_Paradigm,"NotEquals").And("IsFLMFlag","1").List()
+        #App.Log("P2="+str(P2[0].Id()))
+        if(len(P2) != 0):
+            x.SetValue("FLMDefineParadigmRef",P2[0])
+            UDM2 = App.Query("UserToDefineMap").Where("AppUser.Id",x.Id()).And("Paradigm.Id",P2[0].Id()).List()[0]
+            x.SetValue("FLMUserToDefineMap",UDM2)
+        else:
+            x.SetValue("FLMDefineParadigmRef",None)
+            x.SetValue("FLMUserToDefineMap",None)
+
+    if ((x.GetValue("SLMDefineParadigmRef")!=None) and (x.GetValue("SLMDefineParadigmRef").Id()==Curr_Paradigm)):
+        P3 = App.Query("AppUserDefineParadigmMap").Fields("DefineParadigm").Where("AppUser.Id",x.Id()).And("DefineParadigm.Id",Curr_Paradigm,"NotEquals").And("IsSLMFlag","1").List()
+        if(len(P3) !=0):
+            x.SetValue("SLMDefineParadigmRef",P3[0])
+            UDM3 = App.Query("UserToDefineMap").Where("AppUser.Id",x.Id()).And("Paradigm.Id",P3[0].Id()).List()[0]
+            x.SetValue("SLMUserToDefineMap",UDM3)
+        else:
+            x.SetValue("SLMDefineParadigmRef",None)
+            x.SetValue("SLMUserToDefineMap",None)
+
+    if ((x.GetValue("TLMDefineParadigmRef")!=None) and (x.GetValue("TLMDefineParadigmRef").Id()==Curr_Paradigm)):
+        P4 = App.Query("AppUserDefineParadigmMap").Fields("DefineParadigm").Where("AppUser.Id",x.Id()).And("DefineParadigm.Id",Curr_Paradigm,"NotEquals").And("IsTLMFlag","1").List()
+        if(len(P4) !=0):
+            x.SetValue("TLMDefineParadigmRef",P4[0])
+            UDM4 = App.Query("UserToDefineMap").Where("AppUser.Id",x.Id()).And("Paradigm.Id",P4[0].Id()).List()[0]
+            x.SetValue("TLMUserToDefineMap",UDM4)
+        else:
+            x.SetValue("TLMDefineParadigmRef",None)
+            x.SetValue("TLMUserToDefineMap",None)
+
+    if ((x.GetValue("FoLMDefineParadigmRef")!=None) and (x.GetValue("FoLMDefineParadigmRef").Id()==Curr_Paradigm)):
+        P5 = App.Query("AppUserDefineParadigmMap").Fields("DefineParadigm").Where("AppUser.Id",x.Id()).And("DefineParadigm.Id",Curr_Paradigm,"NotEquals").And("IsFoLMFlag","1").List()
+        if(len(P5)!=0):
+            x.SetValue("FoLMDefineParadigmRef",P5[0])
+            UDM5 = App.Query("UserToDefineMap").Where("AppUser.Id",x.Id()).And("Paradigm.Id",P5[0].Id()).List()[0]
+            x.SetValue("FoLMUserToDefineMap",UDM5)
+        else:
+            x.SetValue("FoLMDefineParadigmRef",None)
+            x.SetValue("FoLMUserToDefineMap",None)
+
+App.BulkSave(AppUserRemainingList)
+
+
+AppUserDefineParadigmMapList = App.Query("AppUserDefineParadigmMap").Where("DefineParadigm.Id",Curr_Paradigm).List()
+App.BulkDelete(AppUserDefineParadigmMapList)
+
+UserToDefineMapList = App.Query("UserToDefineMap").Where("Paradigm.Id",Curr_Paradigm).List()
+App.BulkDelete(UserToDefineMapList)
+App.Log("UDM Deleted")
+
+DefineParadigmList = App.Query("DefineParadigm").Where("ParadigmID",Curr_Paradigm).List()
+App.BulkDelete(DefineParadigmList)
