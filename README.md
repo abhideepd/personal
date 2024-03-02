@@ -1,1 +1,1 @@
-Repository of almost all the experiment, tinkering, trial and error stuff, I do in my spare time.
+Repository of some experiments, tinkering, trial and error stuff, I did in my spare time.
